@@ -1,0 +1,48 @@
+:root {
+  /*? Font Family */
+  --ff-dancing-script : 'Dancing Script', cursive;
+  --ff-satisy : 'Satisfy', cursive;
+
+  /* ? COLORS */
+  --c-white: #fff;
+  --c-grey-shade: #333333;
+  --c-grey-dark-shade: #222222;
+  --c-blue : #717fe0;
+  --c-pink : #f74877;
+  --c-red : #ca1515;
+  --c-green : #36a300;
+
+  /* ? Grid Specific color*/
+  --c-women : #fae3d9;
+  --c-man : #bee2d6;
+  --c-kid : #d6d3f0;
+  --c-cosmetic : #fedbe4;
+  --c-accessories : #cee2f5;
+
+
+  /* ? Padding */
+  --p-4px: 0.25rem
+  --p-8px : 0.5rem;
+  --p-16px : 1rem;
+  --p-32px : 32rem;
+
+  /* ? margin */
+  --m-4px: 0.25rem
+  --m-8px : 0.5rem;
+  --m-16px : 1rem;
+  --m-32px : 32rem;
+
+
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
