@@ -2,7 +2,158 @@
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
+    align-items: center; 
+}
+.hero{
+    height: calc(100vh - 80px);
+    width: 100%;
+    display: flex;
     align-items: center;
-    padding: 0 var(--p-16px);
+    justify-content: space-evenly;
+}
+.hero-art{
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.hero-img{
+    position: absolute;
+    opacity: 1;
+    opacity: 0;
+}
+.hero-phone{
+    top: 50%;
+    transform: translate(-50%,-50%);
+    animation : phoneAnim 750ms cubic-bezier(.09,.46,.45,.6)  normal forwards;
+
+}
+@keyframes phoneAnim{
+    0%{
+        left: 55%;
+    }
+    100%{
+        left: 50%;
+        rotate: 0deg;
+        opacity: 1;
+    }
+}
+.hero-cart{
+    top: 65%;
+    left: 48%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+    animation : cartAnim 750ms cubic-bezier(.09,.46,.45,.6)  normal forwards;
+    animation-delay: 700ms;
+}
+@keyframes cartAnim{
+    0%{
+        top: 65%;
+        left: 45%;
+    }
+    100%{
+        top: 69%;
+        left: 43%;
+        rotate: 0deg;
+        opacity: 1;
+    }
+}
+.hero-girl{
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    animation : girlAnim 1.5s ease-in-out  normal forwards;
+    animation-delay: 500ms;
+}
+@keyframes girlAnim{
+    0%{
+        right: 15%;
+    }
+    100%{
+        right: 0%;
+        opacity: 1;
+    }
+}
+.hero-boy{
+    top: 50%;
+    transform: translateY(-50%);
+    animation : charAnim 1.5s ease-in-out  normal forwards;
+    animation-delay: 500ms;
+
+}
+@keyframes charAnim{
+    0%{
+        left: 15%;
+    }
+    100%{
+        left: 0%;
+        opacity: 1;
+    }
+}
+.hero-header{
+    font-size: 3rem;
+    font-weight: bolder;
+    font-family: var(--ff-roboto);
+}
+.hero-header-p1{
+    position: relative;
+    font-weight: bolder;
+    text-transform: capitalize;
+    color: var(--c-grey-shade);  
+    animation : p1Anim 1s ease-in-out  normal forwards; 
+    animation-delay: 700ms;
+    opacity: 0;
+    scale: 0.5;
+}
+
+@keyframes p1Anim{
+    100%{
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.hero-header-p1::after{
+    content: '';
+    width: 25%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 3px solid var(--c-blue);
+}
+.hero-header-p2 > span:nth-child(1){
+    font-family: var(--ff-satisy);
+    display: inline-block;
+    color: var(--c-blue);
+    animation : p2S1Anim 1s ease-in-out  normal forwards; 
+    animation-delay: 700ms;
+    opacity: 0;
+    transform: translateX(-1rem);
+}
+@keyframes p2S1Anim{
+    100%{
+        opacity: 1;
+        transform: translateX(0rem);
+
+    }
+}
+.hero-header-p2 > span:nth-child(2){
+    text-transform: capitalize;
+    color: var(--c-grey-shade);
+    display: inline-block;
+
+    animation : p2S2Anim 1s ease-in-out  normal forwards;
+    animation-delay: 700ms;
+    opacity: 0;
+    transform: translateX(2rem);
+
+}
+@keyframes p2S2Anim{
+    100%{
+        opacity: 1;
+        transform: translateX(0rem);
+
+    }
 }

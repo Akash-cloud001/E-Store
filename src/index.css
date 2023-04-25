@@ -1,7 +1,9 @@
 :root {
+
   /*? Font Family */
   --ff-dancing-script : 'Dancing Script', cursive;
   --ff-satisy : 'Satisfy', cursive;
+  --ff-roboto : 'Roboto', sans-serif;
 
   /* ? COLORS */
   --c-white: #fff;
@@ -19,15 +21,14 @@
   --c-cosmetic : #fedbe4;
   --c-accessories : #cee2f5;
 
-
   /* ? Padding */
-  --p-4px: 0.25rem
+  --p-4px: 0.25rem;
   --p-8px : 0.5rem;
   --p-16px : 1rem;
   --p-32px : 32rem;
 
   /* ? margin */
-  --m-4px: 0.25rem
+  --m-4px: 0.25rem;
   --m-8px : 0.5rem;
   --m-16px : 1rem;
   --m-32px : 32rem;
@@ -45,4 +46,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+ul{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+  color: var(--c-white);
+}
+input,button,select{
+  border: none;
+  background: transparent;
+}
+
+input:focus,select:focus{
+  outline: none;
 }
