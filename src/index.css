@@ -25,13 +25,14 @@
   --p-4px: 0.25rem;
   --p-8px : 0.5rem;
   --p-16px : 1rem;
-  --p-32px : 32rem;
+  --p-32px : 2rem;
+  --p-64px : 4rem;
 
   /* ? margin */
   --m-4px: 0.25rem;
   --m-8px : 0.5rem;
   --m-16px : 1rem;
-  --m-32px : 32rem;
+  --m-32px : 2rem;
 
 
   line-height: 1.5;

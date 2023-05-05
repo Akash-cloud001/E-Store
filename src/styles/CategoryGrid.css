@@ -1,0 +1,71 @@
+
+/* Grid Section */
+.grid-category{
+    height: 90vh;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4,1fr);
+    padding: var(--p-16px) 0;
+    gap: var(--p-16px);
+}
+.grid-item{
+    overflow: hidden;
+    position: relative;
+}
+.grid-category > div > img{
+    height: 100%;
+    float: right;
+    object-fit: contain;
+    left: 0%;
+    bottom: -10%;
+}
+.grid-women{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    background:var(--c-women);
+}
+.grid-men{
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 3;    
+    background: var(--c-man);
+
+}
+.grid-children{
+    grid-column-start: 5;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 3;    
+    background: var(--c-kid);
+
+}
+.grid-accessory{
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 5;    
+    background: var(--c-accessories);
+}
+.grid-cosmetic{
+    grid-column-start: 5;
+    grid-column-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 5;    
+    background: var(--c-cosmetic);
+}
+
+.grid-button{
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    padding-left: 5%;
+    text-align: center;
+    font-size: 3rem;
+    color: var(--c-grey-shade);
+    font-family: var(--ff-satisy);
+}

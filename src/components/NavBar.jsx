@@ -1,42 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/NavBar.css'
 const NavBar = () => {
-    const categories = ['women', 'men', 'children', 'accessories', 'other'];
+    const [chevClick , setChevClick] = useState(false);
+    const categories = ['women', 'men', 'children', 'accessories', 'cosmetic'];
+    const handleDialogClick = ()=>{
+        setChevClick(!chevClick);
+    }
+    const chevron = chevClick ? <i class="ri-arrow-up-s-line"></i> : <i class="ri-arrow-down-s-line"></i>;
   return (
     <div className='NavBar'>
         {/* Logo */}
         <h2 className='NavBar-header'>
             E-Store
         </h2>
-
-        
-
         <ul className='NavBar-nav'>
             <form className='NavBar-Search'>
                 <input type='search' placeholder='search'></input>
                 <button type='submit'>
                     {/* Icon */}
-                    <i class="ri-search-2-line"></i>
+                    <i className="ri-search-2-line"></i>
                 </button>
             </form>
             <li><a href=''>Home</a></li>
-            <li>
-                <select name='categories' id='categories' >
-                    <option style={{display:'none'}}  disabled selected>Categories</option>
+            <li onClick={handleDialogClick} className='dialog-box-container'>
+                <span>Categories</span>
+                {chevron}
+                 <dialog className='dialog-box' id='dialog' open={chevClick}>
                     {categories.map(category => 
-                        <option value={categories}>
+                        <div className='category-item'>
                             {category}
-                        </option>)
+                        </div>)
                     }
-                </select>
+                </dialog>
+
             </li>
             <li><a href=''>Contact Us</a></li>
             
         </ul>
         <div className='user-link'>
-                <a href=''><i class="ri-user-line"></i></a>
-                <a href=''><i class="ri-heart-line"></i></a>
-                <a href=''><i class="ri-shopping-cart-line"></i></a>
+                <a href=''><i className="ri-user-line"></i></a>
+                <a href=''><i className="ri-heart-line"></i></a>
+                <a href=''><i className="ri-shopping-cart-line"></i></a>
         </div>
     </div>
   )

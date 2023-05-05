@@ -9,6 +9,9 @@
     background-color: var(--c-grey-shade);
     padding: 0 var(--p-16px);
     color: var(--c-white);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 .NavBar-nav{
     display: flex;
@@ -59,4 +62,22 @@
 }
 .user-link > a{
     font-size: larger;
+}
+.dialog-box-container{
+    position: relative;
+    cursor: pointer;
+    height: 100%;
+}
+.dialog-box{
+    border: none;
+    position: absolute;
+    top: 125%;
+}
+.category-item{
+    text-transform: capitalize;
+    width: 100%;
+    padding: var(--p-8px) var(--p-16px) ;
+}
+.category-item:nth-child(odd){
+    background-color: rgba(0,0,0,0.05);
 }
