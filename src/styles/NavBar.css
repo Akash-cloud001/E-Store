@@ -77,7 +77,8 @@
     text-transform: capitalize;
     width: 100%;
     padding: var(--p-8px) var(--p-16px) ;
+    font-size: small;
 }
 .category-item:nth-child(odd){
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0,0,0,0.04);
 }

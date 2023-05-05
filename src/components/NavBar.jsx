@@ -6,7 +6,7 @@ const NavBar = () => {
     const handleDialogClick = ()=>{
         setChevClick(!chevClick);
     }
-    const chevron = chevClick ? <i class="ri-arrow-up-s-line"></i> : <i class="ri-arrow-down-s-line"></i>;
+    const chevron = chevClick ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>;
   return (
     <div className='NavBar'>
         {/* Logo */}
