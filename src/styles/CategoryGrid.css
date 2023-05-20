@@ -59,13 +59,14 @@
 }
 
 .grid-button{
-    position: absolute;
-    z-index: 2;
+    /* position: absolute; */
+    /* z-index: 2; */
+    display: grid;
+    place-items: center;
     height: 100%;
     width: 100%;
-    padding-left: 5%;
-    text-align: center;
     font-size: 3rem;
     color: var(--c-grey-shade);
     font-family: var(--ff-satisy);
+    text-transform: capitalize;
 }

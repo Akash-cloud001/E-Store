@@ -1,18 +1,45 @@
 import React from 'react';
+import '../styles/SingleProduct.css';
 
-const SingleProduct = ({image,title,description,price,}) => {
+const SingleProduct = ({image,title,description,price}) => {
+  let currency = '₹'; //future update if we go globally we would change it as per country
+  let desc = ''; // to keep the description in 50 words
+  let discount = 20;
+  let finalPrice = (price - (price * discount / 100)).toFixed(2);
+  let count = 0;
+  let word = '';
+  if(description.length >= 15){
+    for(let i = 0 ; i < description.length; i++){
+      desc += description[i];
+      if(description[i] === ' '){
+        count++;
+      }
+      if(count === 30){
+        desc += '...';
+        break;
+      }
+    }
+  }
+  else{
+    desc = description;
+  }
   return (
     <div className='singleProduct-container'>
-        <img className='product-img' height='300px' src={image}/>
+        <img className='product-img' src={image}/>
         <h4 className='product-name'>{title}</h4>
-        <h5 className='product-desciption'>{description}</h5>
+        
         <div className='product-cost'>
-            <span>{price}</span>
-            <span>Discount</span>
+            <span className={`product-price ${discount !== 0 ? 'line-through': ''}`}>{price} {currency}</span>
+            <span className='product-discount'>{discount!==0 && finalPrice} {discount!==0 && currency}</span>
         </div>
+        <p className='product-desciption'>{desc}</p>
         <div className='product-action'>
-            <button>Like</button>
-            <button>Cart</button>
+            <button className='like-btn'>
+              <i className="ri-heart-3-line"></i>
+            </button>
+            <button className='cart-btn'>
+              <i className="ri-shopping-cart-line"></i>
+            </button>
         </div>
     </div>
   )

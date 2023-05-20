@@ -1,16 +1,18 @@
 import React from 'react';
 import SingleProduct from './SingleProduct';
-import {MEN_PRODUCTS,COSMETIC_PRODUCTS,WOMEN_PRODUCTS,ACCESSORIES_PRODUCTS} from '../ProductsList.js';
-const HomePageProducts = () => {
+import '../styles/PageProducts.css';
+
+const PageProducts = ({products}) => {
+
   return (
     <>
-        <h2>Popular Products</h2>
+        <h2>Filter</h2>
         <div className='products-container'>
             {/* SingleProduct */}
-            {MEN_PRODUCTS.map(product => <SingleProduct key={product.id} {...product}/>)}
+            {products.map(product => <SingleProduct key={product.id} {...product}/>)}
         </div>
     </>
   )
 }
 
-export default HomePageProducts;
+export default PageProducts;

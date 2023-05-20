@@ -7,7 +7,7 @@ import phone from '../images/phone.svg';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import CategoryGrid from './CategoryGrid';
-import HomePageProducts from './PageProducts';
+import PageProducts from './PageProducts';
 
 const Home = () => {
   return (
@@ -32,7 +32,6 @@ const Home = () => {
         </main>
         <CategoryGrid />
         {/* HomePageProducts */}
-        <HomePageProducts />
         {/* <Footer /> */}
     </div>
   )

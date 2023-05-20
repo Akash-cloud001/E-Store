@@ -78,6 +78,7 @@ export const COSMETIC_PRODUCTS = [
         "id": 7,
         "title": "Tree Oil 30ml",
         "price": 12,
+        "description": 'Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.',
         "category": "skincare",
         "image": "https://i.dummyjson.com/data/products/17/3.jpg",
         "rating": {

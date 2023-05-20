@@ -1,22 +1,23 @@
 import React from 'react'
 import '../styles/CategoryGrid.css';
+import { Link } from 'react-router-dom';
 const CategoryGrid = () => {
   return (
     <section className='grid-category'>
             <div className='grid-item grid-women'>
-              <button className='grid-button'>Women</button>
+              <Link to="/women" className='grid-button'>women</Link>
             </div>
             <div className='grid-item grid-men'>
-              <button className='grid-button'>Men</button>
+              <Link to="/men" className='grid-button'>men</Link>
             </div>
             <div className='grid-item grid-children'>
-              <button className='grid-button'>Children</button>
+              <Link to="/accessories" className='grid-button'>accessories</Link>
             </div>
             <div className='grid-item grid-accessory'>
-              <button className='grid-button'>Accessory</button>
+              <Link to='/cosmetic' className='grid-button'>cosmetic</Link>
             </div>
             <div className='grid-item grid-cosmetic'>
-              <button className='grid-button'>Cosmetic</button>
+              <span className='grid-button'> other ...</span>
             </div>
         </section>
   )
