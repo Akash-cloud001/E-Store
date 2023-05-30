@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../styles/NavBar.css'
+import { UserContext } from '../contexts/Contexts';
+
 const NavBar = () => {
+    const { likes, handleSetLikes} = useContext(UserContext);
     const [chevClick , setChevClick] = useState(false);
     const categories = ['women', 'men', 'children', 'accessories', 'cosmetic'];
     const handleDialogClick = ()=>{
@@ -39,7 +42,10 @@ const NavBar = () => {
         </ul>
         <div className='user-link'>
                 <a href=''><i className="ri-user-line"></i></a>
-                <a href=''><i className="ri-heart-line"></i></a>
+                <a href=''>
+                    <i className="ri-heart-line"></i>
+                    <sup className='user-link-like'>{likes.length===0?'':likes.length}</sup>
+                </a>
                 <a href=''><i className="ri-shopping-cart-line"></i></a>
         </div>
     </div>
