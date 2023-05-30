@@ -49,7 +49,6 @@ const SingleProduct = ({id,image,title,description,price}) => {
   return (
     <div className='singleProduct-container'>
         <img className='product-img' src={image}/>
-
         <h4 className='product-name'>{title}</h4>
         
         {/* <div className='product-rating'>
