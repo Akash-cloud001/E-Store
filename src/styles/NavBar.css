@@ -62,6 +62,12 @@
 }
 .user-link > a{
     font-size: larger;
+    position: relative;
+}
+.user-link-like{
+    position: absolute;
+    font-size: x-small;
+    color: var(--c-white);
 }
 .dialog-box-container{
     position: relative;

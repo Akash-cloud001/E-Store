@@ -39,9 +39,9 @@
     font-size: medium;
 }
 .product-discount{
-    color: var(--c-green);
+    color: var(--c-grey-dark-shade);
     font-size: large;
-
+    font-weight: bold;
 }
 .product-desciption{
     margin-top: var(--m-8px);
