@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import '../styles/NavBar.css'
 import { UserContext } from '../contexts/Contexts';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const { likes, handleSetLikes} = useContext(UserContext);
@@ -42,10 +43,10 @@ const NavBar = () => {
         </ul>
         <div className='user-link'>
                 <a href=''><i className="ri-user-line"></i></a>
-                <a href=''>
+                <Link to='/home/liked-products'>
                     <i className="ri-heart-line"></i>
-                    <sup className='user-link-like'>{likes.length===0?'':likes.length}</sup>
-                </a>
+                    <sup className={`user-link-like ${likes.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>
+                </Link>
                 <a href=''><i className="ri-shopping-cart-line"></i></a>
         </div>
     </div>

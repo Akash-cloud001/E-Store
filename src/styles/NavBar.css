@@ -69,6 +69,16 @@
     font-size: x-small;
     color: var(--c-white);
 }
+.user-link-like-has-data{
+    border: 1px solid var(--c-red);
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: var(--c-red);
+}
+.user-link-like-has-no-data{
+    border: none;
+}
 .dialog-box-container{
     position: relative;
     cursor: pointer;

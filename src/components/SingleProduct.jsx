@@ -8,13 +8,13 @@ const SingleProduct = ({id,image,title,description,price}) => {
 
   
   // Toggle State 
-  const [isliked, setIsLiked] = useState(false);
+  // const [isliked, setIsLiked] = useState(false);
 
 
   let currency = '$'; //future update if we go globally we would change it as per country
   let desc = ''; // to keep the description in 50 words
   let discount = 20;
-  let finalPrice = (price - (price * discount / 100)).toFixed(2);
+  const finalPrice = (price - (price * discount / 100)).toFixed(2);
   let count = 0;
   let word = '';
   if(description.length >= 15){
@@ -32,17 +32,18 @@ const SingleProduct = ({id,image,title,description,price}) => {
   else{
     desc = description;
   }
-
+  let alreadyLiked = false;
   const handleLikeButton = ()=>{
     const likedProduct = {
       'id':id,
       'image':image,
       'title':title,
       'description': description,
-      'price':price
+      'price':price,
+      'finalPrice' : finalPrice
     };
     handleSetLikes(likedProduct);
-    setIsLiked(!isliked)
+    // setIsLiked(!isliked);
   }
 
 //  rating system
@@ -69,7 +70,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
         <p className='product-desciption'>{desc}</p>
         <div className='product-action'>
             <button className='like-btn' onClick={handleLikeButton}>
-              <i className={`${!isliked? 'ri-heart-3-line':'ri-heart-3-fill'}`}></i>
+              <i className='ri-heart-3-line'></i>
             </button>
             <button className='cart-btn'>
               <i className="ri-shopping-cart-line"></i>
