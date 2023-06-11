@@ -30,7 +30,7 @@ export const UserProvider = (props) =>{
 
     const removeLikedProducts = (id)=>{
         const newLikedArr = likes.filter((product) => product.id !== id);
-        setLikes( newLikedArr)
+        setLikes( newLikedArr);
     }
 
     return(

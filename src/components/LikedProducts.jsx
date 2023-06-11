@@ -29,7 +29,10 @@ const LikedProducts = () => {
       <i class="ri-arrow-left-line"></i>
     </Button>
    </div>: 
-   likes.map(ele=> <SingleLikedProduct {...ele}/>)
+   <div className='liked-product-root'>
+    {likes.map(ele => <SingleLikedProduct {...ele}/>)}
+   </div>
+
   return (
     <>  
         <NavBar />

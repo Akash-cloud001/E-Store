@@ -2,12 +2,13 @@ import React from 'react'
 import '../styles/SingleLikedProduct.css';
 import { useContext } from 'react';
 import { UserContext } from '../contexts/Contexts';
+import { Button } from '@mui/material';
 
 const SingleLikedProduct = ({id,title,price,finalPrice, image, description}) => {
   const {removeLikedProducts} = useContext(UserContext);
 
   return (
-    <div className='liked-products-container'>
+    <div className='single-liked-container'>
         <img className='liked-image' src={image} alt={title}/>
         <aside className='liked-aside'>
             <h3 className='liked-title'>
@@ -21,8 +22,18 @@ const SingleLikedProduct = ({id,title,price,finalPrice, image, description}) => 
                 {description}
             </p>
             <div className='liked-btns'>
-                <button className='liked-buy'>Buy</button>
-                <button className='liked-remove' onClick={()=>{removeLikedProducts(id)}}>Remove</button>
+                <button 
+                    className='liked-buy'
+                >
+                    Buy
+                </button>
+                <button 
+                    className='liked-remove'
+                    onClick={()=>{removeLikedProducts(id)}}
+                >
+                    Remove
+                </button>
+
             </div>
         </aside>
     </div>
