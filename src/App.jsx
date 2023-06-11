@@ -5,6 +5,7 @@ import PageNotFound from './components/PageNotFound';
 import PageProducts from './components/PageProducts';
 import { WOMEN_PRODUCTS, MEN_PRODUCTS, ACCESSORIES_PRODUCTS, COSMETIC_PRODUCTS} from './ProductsList';
 import LikedProducts from './components/LikedProducts';
+import CartPage from './components/CartPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/home/accessories' element={<PageProducts products={ACCESSORIES_PRODUCTS}/>}/>
           <Route path='/home/cosmetic' element={<PageProducts products={COSMETIC_PRODUCTS} />}/>
           <Route path='/home/liked-products' element={<LikedProducts />} />
+          <Route path='/home/cart' element={<CartPage />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </div>

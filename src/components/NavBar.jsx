@@ -4,7 +4,7 @@ import { UserContext } from '../contexts/Contexts';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
-    const { likes, handleSetLikes} = useContext(UserContext);
+    const { likes, cart} = useContext(UserContext);
     const [chevClick , setChevClick] = useState(false);
     const categories = ['women', 'men', 'accessories', 'cosmetic'];
     const handleDialogClick = ()=>{
@@ -31,7 +31,7 @@ const NavBar = () => {
                 {chevron}
                  <dialog className='dialog-box' id='dialog' open={chevClick}>
                     {categories.map(category => 
-                        <Link to={`/home/${category}`} className='category-item'>
+                        <Link to={`/home/${category}`} className='category-item' key={category}>
                             {category}
                         </Link>)
                     }
@@ -47,7 +47,10 @@ const NavBar = () => {
                     <i className="ri-heart-line"></i>
                     <sup className={`user-link-like ${likes.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>
                 </Link>
-                <a href=''><i className="ri-shopping-cart-line"></i></a>
+                <Link to='/home/cart'>
+                    <i className="ri-shopping-cart-line"></i>
+                    <sup className={`user-link-like ${cart.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>
+                </Link>
         </div>
     </div>
   )

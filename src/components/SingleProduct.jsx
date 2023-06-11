@@ -7,9 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 const SingleProduct = ({id,image,title,description,price}) => {
 
-  const {likes, handleSetLikes} = useContext(UserContext);
+  const { handleSetLikes, handleCartItem} = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
-
+  
   const handleClick = () => {
     setOpen(true);
   };
@@ -33,9 +33,6 @@ const SingleProduct = ({id,image,title,description,price}) => {
       </IconButton>
     </React.Fragment>
   );
-  // Toggle State 
-  // const [isliked, setIsLiked] = useState(false);
-
 
   let currency = '$'; //future update if we go globally we would change it as per country
   let desc = ''; // to keep the description in 50 words
@@ -70,15 +67,19 @@ const SingleProduct = ({id,image,title,description,price}) => {
       'finalPrice' : finalPrice
     };
     handleSetLikes(likedProduct);
-    // setIsLiked(!isliked);
   }
 
-
-  
-//  rating system
-// <i className="ri-star-fill"></i>  filled star 
-//  <i className="ri-star-half-line"></i> half filled star
-//  <i className="ri-star-line"></i> empty star 
+  const handleCartButton = ()=>{
+    const cartProduct = {
+      'id':id,
+      'image':image,
+      'title':title,
+      'description': description,
+      'price':price,
+      'finalPrice' : finalPrice
+    };
+    handleCartItem(cartProduct);
+  }
 
 
   return (
@@ -86,10 +87,6 @@ const SingleProduct = ({id,image,title,description,price}) => {
         <img className='product-img' src={image}/>
         <h4 className='product-name'>{title}</h4>
         
-        {/* <div className='product-rating'>
-
-        </div> */}
-
         <div className='product-cost'>
             <span className={`product-price ${discount !== 0 ? 'line-through': ''}`}>
               {price} {currency}
@@ -105,10 +102,10 @@ const SingleProduct = ({id,image,title,description,price}) => {
                 open={open}
                 autoHideDuration={1000}
                 onClose={handleClose}
-                message="Successfully Added"
+                message="Added to wishlist"
                 action={action}
               />
-            <button className='cart-btn'>
+            <button className='cart-btn' onClick={handleCartButton}>
               <i className="ri-shopping-cart-fill"></i>
             </button>
         </div>
