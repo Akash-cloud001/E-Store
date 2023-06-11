@@ -1,12 +1,38 @@
 import React, { useContext, useState } from 'react';
 import '../styles/SingleProduct.css';
 import { UserContext } from '../contexts/Contexts';
-
+import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 const SingleProduct = ({id,image,title,description,price}) => {
 
   const {likes, handleSetLikes} = useContext(UserContext);
+  const [open, setOpen] = React.useState(false);
 
-  
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
   // Toggle State 
   // const [isliked, setIsLiked] = useState(false);
 
@@ -34,6 +60,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
   }
   let alreadyLiked = false;
   const handleLikeButton = ()=>{
+    handleClick();
     const likedProduct = {
       'id':id,
       'image':image,
@@ -46,6 +73,8 @@ const SingleProduct = ({id,image,title,description,price}) => {
     // setIsLiked(!isliked);
   }
 
+
+  
 //  rating system
 // <i className="ri-star-fill"></i>  filled star 
 //  <i className="ri-star-half-line"></i> half filled star
@@ -70,10 +99,17 @@ const SingleProduct = ({id,image,title,description,price}) => {
         <p className='product-desciption'>{desc}</p>
         <div className='product-action'>
             <button className='like-btn' onClick={handleLikeButton}>
-              <i className='ri-heart-3-line'></i>
+              <i className='ri-heart-3-fill'></i>
             </button>
+              <Snackbar
+                open={open}
+                autoHideDuration={1000}
+                onClose={handleClose}
+                message="Successfully Added"
+                action={action}
+              />
             <button className='cart-btn'>
-              <i className="ri-shopping-cart-line"></i>
+              <i className="ri-shopping-cart-fill"></i>
             </button>
         </div>
     </div>

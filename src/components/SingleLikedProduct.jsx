@@ -1,6 +1,11 @@
 import React from 'react'
 import '../styles/SingleLikedProduct.css';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/Contexts';
+
 const SingleLikedProduct = ({id,title,price,finalPrice, image, description}) => {
+  const {removeLikedProducts} = useContext(UserContext);
+
   return (
     <div className='liked-products-container'>
         <img className='liked-image' src={image} alt={title}/>
@@ -17,7 +22,7 @@ const SingleLikedProduct = ({id,title,price,finalPrice, image, description}) => 
             </p>
             <div className='liked-btns'>
                 <button className='liked-buy'>Buy</button>
-                <button className='liked-remove'>Remove</button>
+                <button className='liked-remove' onClick={()=>{removeLikedProducts(id)}}>Remove</button>
             </div>
         </aside>
     </div>

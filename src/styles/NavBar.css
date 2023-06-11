@@ -90,10 +90,12 @@
     top: 125%;
 }
 .category-item{
+    display: inline-block;
     text-transform: capitalize;
     width: 100%;
     padding: var(--p-8px) var(--p-16px) ;
     font-size: small;
+    color: var(--c-grey-shade);
 }
 .category-item:nth-child(odd){
     background-color: rgba(0,0,0,0.04);

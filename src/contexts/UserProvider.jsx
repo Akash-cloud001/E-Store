@@ -26,8 +26,15 @@ export const UserProvider = (props) =>{
         }
         return isPresent;
     }
+
+
+    const removeLikedProducts = (id)=>{
+        const newLikedArr = likes.filter((product) => product.id !== id);
+        setLikes( newLikedArr)
+    }
+
     return(
-        <UserContext.Provider value={{likes,handleSetLikes}}>
+        <UserContext.Provider value={{likes,handleSetLikes, removeLikedProducts}}>
             {props.children}
         </UserContext.Provider>
     )

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const NavBar = () => {
     const { likes, handleSetLikes} = useContext(UserContext);
     const [chevClick , setChevClick] = useState(false);
-    const categories = ['women', 'men', 'children', 'accessories', 'cosmetic'];
+    const categories = ['women', 'men', 'accessories', 'cosmetic'];
     const handleDialogClick = ()=>{
         setChevClick(!chevClick);
     }
@@ -31,9 +31,9 @@ const NavBar = () => {
                 {chevron}
                  <dialog className='dialog-box' id='dialog' open={chevClick}>
                     {categories.map(category => 
-                        <div className='category-item'>
+                        <Link to={`/home/${category}`} className='category-item'>
                             {category}
-                        </div>)
+                        </Link>)
                     }
                 </dialog>
 
