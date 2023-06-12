@@ -5,12 +5,12 @@ export const UserProvider = (props) =>{
     // accessing from localStorage
     const savedLiked = JSON.parse(window.localStorage.getItem('likes'));
     const savedCart = JSON.parse(window.localStorage.getItem('cart'));
-
+    const savedTotalAmt = Number(JSON.parse(window.localStorage.getItem('totalAmt')));
     // checking if localStorage have those than use them else go with empty array
     const [likes, setLikes] = useState(savedLiked || []);
     const [cart, setCart] = useState(savedCart || []);
-
-
+    const [totalAmt, setTotalAmt] = useState(savedTotalAmt || 0);
+    
     // Methods to Handle Liked Product
     const handleSetLikes = (likedProduct)=>{
         let isPresent = false;
@@ -40,12 +40,17 @@ export const UserProvider = (props) =>{
                 break;
             } 
         }
-        if(!isPres) setCart([...cart, cartProduct]);
+        if(!isPres){
+            setCart([...cart, cartProduct]);
+            setTotalAmt((Number(totalAmt) + Number(cartProduct.finalPrice)).toFixed(3));
+        }
         else return;
     }
-    const removeCartItem = (id) => {
+    const removeCartItem = (id,finalPrice) => {
         const newCartArr = likes.filter((product) => product.id !== id);
+        console.log(finalPrice);
         setCart( newCartArr );
+        setTotalAmt((Number(totalAmt) - Number(finalPrice)).toFixed(3));
     }
 
     useEffect(()=>{
@@ -55,10 +60,17 @@ export const UserProvider = (props) =>{
 
     useEffect(()=>{
         window.localStorage.setItem('cart', JSON.stringify(cart));
+        window.localStorage.setItem('totalAmt', JSON.stringify(totalAmt));
+        console.log(totalAmt);
     }, [cart]);
 
+    useEffect(()=>{
+        window.localStorage.setItem('totalAmt', JSON.stringify(totalAmt));
+        console.log(totalAmt);
+    }, [totalAmt]);
+
     return(
-        <UserContext.Provider value={{likes,handleSetLikes, removeLikedProducts, cart, handleCartItem, removeCartItem}}>
+        <UserContext.Provider value={{likes,handleSetLikes, removeLikedProducts, cart, handleCartItem, removeCartItem, totalAmt}}>
             {props.children}
         </UserContext.Provider>
     )

@@ -8,31 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 const SingleProduct = ({id,image,title,description,price}) => {
 
   const { handleSetLikes, handleCartItem} = useContext(UserContext);
-  const [open, setOpen] = React.useState(false);
-  
-  const handleClick = () => {
-    setOpen(true);
-  };
+  const [likeOpen, setLikeOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
 
-    setOpen(false);
-  };
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
+
 
   let currency = '$'; //future update if we go globally we would change it as per country
   let desc = ''; // to keep the description in 50 words
@@ -57,7 +37,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
   }
   let alreadyLiked = false;
   const handleLikeButton = ()=>{
-    handleClick();
+    handleLikeClick();
     const likedProduct = {
       'id':id,
       'image':image,
@@ -70,6 +50,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
   }
 
   const handleCartButton = ()=>{
+    handleCartClick();
     const cartProduct = {
       'id':id,
       'image':image,
@@ -82,6 +63,54 @@ const SingleProduct = ({id,image,title,description,price}) => {
   }
 
 
+  const handleLikeClick = () => {
+    setLikeOpen(true);
+  };
+  const handleCartClick = () => {
+    setCartOpen(true);
+  };
+
+  const handleLikeClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setLikeOpen(false);
+  };
+  const handleCartClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setCartOpen(false);
+  };
+  const likeAction = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleLikeClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+  const cartAction = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleLikeClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+
+  
   return (
     <div className='singleProduct-container'>
         <img className='product-img' src={image}/>
@@ -99,15 +128,22 @@ const SingleProduct = ({id,image,title,description,price}) => {
               <i className='ri-heart-3-fill'></i>
             </button>
               <Snackbar
-                open={open}
+                open={likeOpen}
                 autoHideDuration={1000}
-                onClose={handleClose}
+                onClose={handleLikeClose}
                 message="Added to wishlist"
-                action={action}
+                action={likeAction}
               />
             <button className='cart-btn' onClick={handleCartButton}>
               <i className="ri-shopping-cart-fill"></i>
             </button>
+            <Snackbar
+                open={cartOpen}
+                autoHideDuration={1000}
+                onClose={handleCartClose}
+                message="Added to Cart"
+                action={cartAction}
+              />
         </div>
     </div>
   )
