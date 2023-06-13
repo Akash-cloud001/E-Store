@@ -1,0 +1,16 @@
+.cart-product-container{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    height: 300px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: var(--p-16px);
+    margin-bottom: var(--m-32px) ;
+    overflow: hidden;
+}
+.cart-item-image{
+    display: inline-block;
+    height: 250px;
+    align-self: center;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+}

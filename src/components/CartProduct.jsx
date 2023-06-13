@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react';
 import { UserContext } from '../contexts/Contexts';
 import { Button } from '@mui/material';
+import '../styles/CartProduct.css';
 
 const CartProduct = ({id,title,price,finalPrice, image, description}) => {
   const {removeCartItem} = useContext(UserContext);

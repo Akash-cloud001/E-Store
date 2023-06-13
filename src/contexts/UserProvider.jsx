@@ -47,27 +47,24 @@ export const UserProvider = (props) =>{
         else return;
     }
     const removeCartItem = (id,finalPrice) => {
-        const newCartArr = likes.filter((product) => product.id !== id);
-        console.log(finalPrice);
+        const newCartArr = cart.filter((product) => product.id !== id);
+
+        console.log('removeCartItem:: ' ,newCartArr,finalPrice);
         setCart( newCartArr );
         setTotalAmt((Number(totalAmt) - Number(finalPrice)).toFixed(3));
     }
 
+    // To Update Likes
     useEffect(()=>{
         window.localStorage.setItem('likes',JSON.stringify(likes));
-        
     }, [likes]);
 
+    // To update Cart and totalAmount
     useEffect(()=>{
         window.localStorage.setItem('cart', JSON.stringify(cart));
         window.localStorage.setItem('totalAmt', JSON.stringify(totalAmt));
-        console.log(totalAmt);
     }, [cart]);
 
-    useEffect(()=>{
-        window.localStorage.setItem('totalAmt', JSON.stringify(totalAmt));
-        console.log(totalAmt);
-    }, [totalAmt]);
 
     return(
         <UserContext.Provider value={{likes,handleSetLikes, removeLikedProducts, cart, handleCartItem, removeCartItem, totalAmt}}>

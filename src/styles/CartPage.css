@@ -1,0 +1,32 @@
+.cart-section{
+    margin: var(--m-16px) 0;
+    display: grid;
+    width: 95%;
+    margin-inline: auto;
+    grid-template-columns: 2fr 0.5fr;
+    gap: 1rem;
+    font-family: var(--ff-roboto);
+    position: relative;
+}
+.cart-items-container{
+    text-align: justify;
+}
+.total-table{
+    position: sticky;
+    top: 80px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding-inline: var(--p-16px);
+    height: max-content;
+    font-size: small;
+}
+.total-table tr, td{
+    text-align: left;
+}
+.total-table td , th{
+    width: 100%;
+    padding: 0 15px 15px 0;
+}
+.table-btn > button{
+    border: 1px solid var(--c-green) !important;
+    color: var(--c-green);
+}

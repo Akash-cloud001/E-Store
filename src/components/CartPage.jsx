@@ -5,9 +5,10 @@ import { UserContext } from '../contexts/Contexts';
 import { useNavigate } from 'react-router';
 import NavBar from './NavBar';
 import CartProduct from './CartProduct';
-import SingleLikedProduct from './SingleLikedProduct';
 import EmptyCart from '../images/EmptyCart.png';
 import Button from '@mui/material/Button';
+import '../styles/CartPage.css';
+
 
 const CartPage = () => {
     const { cart, totalAmt } = useContext(UserContext);
@@ -23,65 +24,59 @@ const CartPage = () => {
         <i className="ri-arrow-left-line"></i>
         </Button>
     </div>: 
-    <div className='liked-product-root'>
+    <div className='cart-items-container'>
         {cart.map(ele => <CartProduct {...ele} key={ele.id}/>)}
     </div>
-
-    let totalCost = 0;
-    if(cart.length){
-        for(let i = 0 ; i < cart.length; i++){
-            totalCost += cart[i].finalPrice;
-        }
-    }
 
     return (
     <>
         <NavBar />
-        <section>
+        <section className='cart-section'>
             {CartProductData}
-            <aside className='total-container'>
-                <table>
-                    <thead>
+            <table className='total-table' style={{display:`${cart.length!==0? 'grid' : 'none'}`}}>
+                <thead>
+                <tr>
+                    <th align='left'>
+                        Product Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {cart.map(item=>
+                
+                    <tr key={item.id}>
+                        <td align='left'>{item.title}</td>
+                        <td align='right'>{item.finalPrice}</td>
+                    </tr>
+                )}
+                </tbody>
+                <tfoot>
                     <tr>
-                        <th align='left'>
-                            Product Name
-                        </th>
-                        <th>
-                            Price
+                        <th align='right' colSpan={2}>
+                            +
                         </th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {cart.map(item=>
-                    
-                        <tr key={item.id}>
-                            <td align='left'>{item.title}</td>
-                            <td align='right'>{item.finalPrice}</td>
-                        </tr>
-                    )}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>
-                                
-                            </th>
-                            <th align='left'>
-                                +
-                            </th>
-                        </tr>
-                    
-                        <tr>
-                            <th align='left'>
-                                Total Amount
-                            </th>
-                            <th align='right'>
-                                {totalAmt}
-                            </th>
-                        </tr>
-                    </tfoot>
-                    {/*  TODO create a table with name of the product and price a */}
-                </table>
-            </aside>
+                
+                    <tr>
+                        <th align='left'>
+                            Total Amount
+                        </th>
+                        <th align='right'>
+                            {totalAmt}$
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan={2} align='center' className='table-btn'>
+                            <Button >
+                                Buy Now
+                            </Button>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
         </section>
         <Gototop />
     </>
