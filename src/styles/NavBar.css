@@ -13,17 +13,10 @@
     top: 0;
     z-index: 10;
 }
-.NavBar-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 50%;
-    gap: var(--p-16px);
-    /* gap: 15px; */
-}
+
 .NavBar-Search{
     /* flex-grow: 1; */
-    width: 50%;
+    width: 35%;
     position: relative;
     background-color: rgba(0,0,0,0.1);
     padding: var(--p-8px);
@@ -34,15 +27,29 @@
     color: white;
     font-size: large;
 }
-
 .NavBar-Search > button{
-    width: 10%;
+    width: 9%;
     height: 1.5rem;
     cursor: pointer;
     font-size: large;
     position: absolute;
     right: 0;
     color: white;
+    padding-right: var(--p-8px);
+}
+.NavBar-aside{
+    display: flex;
+    width: 45%;
+    justify-content: space-between;
+    align-items: center;
+}
+.NavBar-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* width: 25%; */
+    gap: var(--p-16px);
+    /* gap: 15px; */
 }
 
 #categories{
@@ -55,6 +62,32 @@
     background-color: var(--c-grey-shade);
     text-transform: capitalize;
 }
+.dialog-box-container{
+    position: relative;
+    cursor: pointer;
+    height: 100%;
+}
+.dialog-box{
+    border: none;
+    position: absolute;
+    top: 125%;
+    z-index: 5;
+}
+.category-item{
+    display: inline-block;
+    text-transform: capitalize;
+    width: 100%;
+    padding: var(--p-8px) var(--p-16px) ;
+    font-size: small;
+    color: var(--c-grey-shade);
+    z-index: 5;
+
+}
+.category-item:nth-child(odd){
+    background-color: rgba(0,0,0,0.04);
+}
+
+
 .user-link{
     display: flex;
     gap: var(--p-16px);
@@ -79,24 +112,83 @@
 .user-link-like-has-no-data{
     border: none;
 }
-.dialog-box-container{
-    position: relative;
-    cursor: pointer;
-    height: 100%;
+
+.toggle-button{
+    display: none;
 }
-.dialog-box{
-    border: none;
-    position: absolute;
-    top: 125%;
+
+
+@media ( max-width : 1199.98px){
+    
 }
-.category-item{
-    display: inline-block;
-    text-transform: capitalize;
-    width: 100%;
-    padding: var(--p-8px) var(--p-16px) ;
-    font-size: small;
-    color: var(--c-grey-shade);
+@media ( max-width : 991.98px){
+    .NavBar-aside{
+        position: absolute;
+        top: 64px;
+        right: 0;
+        flex-direction: column;
+        height: 50vh;
+        gap: 2rem;
+        padding: var(--p-16px);
+        width: 320px;
+        border-bottom-left-radius: 4px;
+        background-color: var(--c-grey-shade);
+    }
+    
+    .NavBar-Show{
+        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+        animation: navBarShow 250ms ease-in-out forwards;
+    }
+    @keyframes navBarShow{
+        from{
+            right: -320px;
+        }
+        to{
+            right: 0px;
+        }
+    }
+    .NavBar-Hide{
+        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+        animation: navBarHide 250ms ease-in-out forwards;
+    }
+    @keyframes navBarHide{
+        from{
+            right: 0px;
+        }
+        to{
+            right: -320px;
+        }
+    }
+    .NavBar-nav{
+        flex-direction: column;
+    }
+    .NavBar-Search{
+        width: 50%;
+    }
+    .toggle-button{
+        display: block;
+        font-size: x-large;
+        color: var(--c-white);
+    }
 }
-.category-item:nth-child(odd){
-    background-color: rgba(0,0,0,0.04);
+@media ( max-width : 767.98px){
+    .NavBar-header{
+        font-size: medium;
+    }
+
+    .NavBar-Search input, button{
+        height: 0.75rem;
+        font-size: small;
+    }
+    .NavBar-Search > button{
+        width: 13%;
+    }
+    .toggle-button{
+        font-size: large;
+    }
+}
+@media ( max-width : 575px){
+    .NavBar-Search {
+        width: 60%;
+    }
 }
