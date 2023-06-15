@@ -11,13 +11,13 @@ const CategoryGrid = () => {
               <Link to="/home/men" className='grid-button'>men</Link>
             </div>
             <div className='grid-item grid-children'>
-              <Link to="/home/accessories" className='grid-button'>accessories</Link>
+              <Link to="/home/children" className='grid-button'>children</Link>
             </div>
             <div className='grid-item grid-accessory'>
-              <Link to='/home/cosmetic' className='grid-button'>cosmetic</Link>
+              <Link to='/home/accessories' className='grid-button'>accessories</Link>
             </div>
             <div className='grid-item grid-cosmetic'>
-              <span className='grid-button'> other ...</span>
+            <Link to='/home/cosmetic' className='grid-button'>cosmetic</Link>
             </div>
         </section>
   )
