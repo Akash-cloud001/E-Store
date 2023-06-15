@@ -14,10 +14,13 @@ const NavBar = () => {
 
     const handleDialogClick = ()=>{
         setChevClick(!chevClick);
+        
     }
 
-    const handleHamburger = ()=>{
-        setHamburger(!hamburger)
+    const handleHamburger = (e)=>{
+        setHamburger(!hamburger);
+        setChevClick(false);
+
     }
 
 
@@ -37,7 +40,7 @@ const NavBar = () => {
                 <i className="ri-search-2-line"></i>
             </button>
         </form>
-        <aside className={`NavBar-aside ${hamburger===true? 'NavBar-Show': 'NavBar-Hide'}`}>
+        <aside className={`NavBar-aside ${hamburger===true? 'NavBar-Show': 'NavBar-Hide'}`} >
             <ul className='NavBar-nav'>
                 <li><a href=''>Home</a></li>
                 <li onClick={handleDialogClick} className='dialog-box-container'>

@@ -21,7 +21,6 @@ const Home = () => {
               <span>Best</span>
             </p>
           </div>
-          {/* <img src={bg} className='hero-img'/> */}
           <div className='hero-art'>
             <img src={girl} className='hero-img hero-girl'/>
             <img src={boy} className='hero-img hero-boy'/>
