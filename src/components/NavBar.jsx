@@ -24,8 +24,6 @@ const NavBar = () => {
     }
 
 
-
-
     const chevron = chevClick ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>;
   return (
     <div className='NavBar'>
@@ -48,7 +46,7 @@ const NavBar = () => {
                     {chevron}
                     <dialog className='dialog-box' id='dialog' open={chevClick}>
                         {categories.map(category => 
-                            <Link to={`/home/${category}`} className='category-item' key={category}>
+                            <Link to={`/home/${category}`} className='category-item' key={category} onClick={()=>{setHamburger(false)}}>
                                 {category}
                             </Link>)
                         }

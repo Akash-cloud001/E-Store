@@ -13,26 +13,26 @@ import '../styles/CartPage.css';
 const CartPage = () => {
     const { cart, totalAmt } = useContext(UserContext);
     const navigate = useNavigate();
-
-    const CartProductData = cart.length === 0 ?
-    <div className='emptyListDiv'>
-        <img src={EmptyCart} alt='EmptyCartImage'/> 
-        <h1 className='emptyList-header'>
-        Cart is empty...
-        </h1>
-        <Button variant='outlined' onClick={()=> navigate(-1)}>
-        <i className="ri-arrow-left-line"></i>
-        </Button>
-    </div>: 
-    <div className='cart-items-container'>
-        {cart.map(ele => <CartProduct {...ele} key={ele.id}/>)}
-    </div>
-
+    
     return (
     <>
         <NavBar />
+        {cart.length === 0 ? 
+        <div className='emptyListDiv'>
+            <img src={EmptyCart} alt='EmptyCartImage'/> 
+            <h1 className='emptyList-header'>
+            Cart is empty...
+            </h1>
+            <Button variant='outlined' onClick={()=> navigate(-1)}>
+            <i className="ri-arrow-left-line"></i>
+            </Button>
+        </div>  :
         <section className='cart-section'>
-            {CartProductData}
+            {
+                <div className='cart-items-container'>
+                {cart.map(ele => <CartProduct {...ele} key={ele.id}/>)}
+                </div>
+            }
             <table className='total-table' style={{display:`${cart.length!==0? 'grid' : 'none'}`}}>
                 <thead>
                 <tr>
@@ -78,6 +78,8 @@ const CartPage = () => {
                 </tfoot>
             </table>
         </section>
+    }
+        
         <Gototop />
     </>
     )
