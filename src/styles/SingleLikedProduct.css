@@ -23,13 +23,17 @@
     padding: 6px var(--p-16px);
     height: max-content;
 }
+
+
 .liked-product-root{
     display: grid;
     height:auto;
     width: 90%;
     font-family: var(--ff-roboto);
     margin-inline: auto; 
-    gap: 2rem;   
+    gap: 2rem;  
+    margin-bottom: var(--m-32px);
+    margin-top: var(--m-16px); 
 }
 .single-liked-container{
     display: grid;
@@ -40,6 +44,7 @@
     overflow: hidden;
     padding-inline: var(--p-4px);
     text-align: justify;
+    position: relative;
 }
 .liked-image{
     height: 300px;
@@ -53,8 +58,9 @@
     width: 95%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
+    gap: 1rem;
 }
 .liked-desc{
     text-align: justify;
@@ -62,7 +68,7 @@
     scroll-behavior: smooth;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-    max-height: 200px;
+    max-height: 250px;
 }
 .liked-desc::-webkit-scrollbar {
     display: none;
@@ -71,6 +77,15 @@
     text-transform: uppercase;
 }
 
+.liked-cost{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.liked-price{
+    text-decoration: line-through;
+    color: var(--c-red);
+}
 
 .liked-btns{
     display: flex;
@@ -80,6 +95,7 @@
     font-size: medium;
     padding: var(--p-8px) var(--p-16px);
     border-radius: 4px;
+    height: max-content;
 }
 .liked-buy{
     border: 1px solid var(--c-green) !important;
@@ -98,9 +114,40 @@
 }
 @media ( max-width : 991.98px){
     
+    .liked-price{
+        font-size: small;
+    }
+    .liked-final-price{
+        font-size: medium;
+    }
+    .liked-title,.liked-btns > button{
+        font-size: medium;
+    }
+    .liked-desc{
+        font-size: small;
+    }
 }
 @media ( max-width : 767.98px){
-    
+    .single-liked-container{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: 600px;
+        gap: 1rem;
+        padding: var(--p-8px);
+    }
+    .liked-aside{
+        gap: 0.5rem;
+        height: fit-content;
+    }
+    .liked-image{
+        height: 240px;
+    }
+    .liked-desc{
+        max-height: 200px;
+    }
+    .liked-btns > button{
+        font-size: small;
+    }
 }
 @media ( max-width : 575px){
     .EmptyListImage{

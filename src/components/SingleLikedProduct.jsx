@@ -16,7 +16,7 @@ const SingleLikedProduct = ({id,title,price,finalPrice, image, description}) => 
             </h3>
             <div className='liked-cost'>
                 <h4 className='liked-price'>{price}</h4>
-                <h3 className='liked-final-price'>{finalPrice}</h3>
+                <h3 className='liked-final-price'>{finalPrice}$</h3>
             </div>
             <p className='liked-desc'>
                 {description}

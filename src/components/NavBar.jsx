@@ -40,7 +40,7 @@ const NavBar = () => {
         </form>
         <aside className={`NavBar-aside ${hamburger===true? 'NavBar-Show': 'NavBar-Hide'}`} >
             <ul className='NavBar-nav'>
-                <li><a href=''>Home</a></li>
+                <li><Link to={'/'} href=''>Home</Link></li>
                 <li onClick={handleDialogClick} className='dialog-box-container'>
                     <span>Categories</span>
                     {chevron}
