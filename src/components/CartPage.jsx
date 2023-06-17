@@ -18,14 +18,14 @@ const CartPage = () => {
     <>
         <NavBar />
         {cart.length === 0 ? 
-        <div className='emptyListDiv'>
-            <img src={EmptyCart} alt='EmptyCartImage'/> 
-            <h1 className='emptyList-header'>
+        <div className='emptyCartDiv'>
+            <img src={EmptyCart} alt='EmptyCartImage' className='EmptyCartImage'/> 
+            <h1 className='emptyCart-header'>
             Cart is empty...
             </h1>
-            <Button variant='outlined' onClick={()=> navigate(-1)}>
+            <button onClick={()=> navigate(-1)} className='emptyCart-btn'>
             <i className="ri-arrow-left-line"></i>
-            </Button>
+            </button>
         </div>  :
         <section className='cart-section'>
             {

@@ -1,16 +1,28 @@
 .emptyListDiv{
-    display: grid;
-    place-items: center;
     height: calc(100vh - 64px);
-    overflow: hidden;
-    grid-template-rows: 3fr 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.EmptyListImage{
+    height: 400px;
+    width: 400px;
+    object-fit: contain;
 }
 .emptyList-header{
     font-family: var(--ff-satisy);
-    text-align: center;
     color: var(--c-blue);
 }
-
+.emptyList-btn{
+    border: 1px solid var(--c-blue);
+    color: var(--c-blue);
+    border-radius: 4px;
+    font-size: large;
+    padding: 6px var(--p-16px);
+    height: max-content;
+}
 .liked-product-root{
     display: grid;
     height:auto;
@@ -88,14 +100,17 @@
     
 }
 @media ( max-width : 767.98px){
-    .EmptyCartImage{
-        height: 350px;
-        aspect-ratio: 1;
-    }
+    
 }
 @media ( max-width : 575px){
-    .EmptyCartImage{
-        height: 250px;
-        aspect-ratio: 1;
+    .EmptyListImage{
+        height: 300px;
+        width: 300px;
+    } 
+    .emptyList-header{
+        font-size: large;
+    }
+    .emptyList-btn{
+        font-size: medium;
     }
 }

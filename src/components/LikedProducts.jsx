@@ -21,13 +21,13 @@ const LikedProducts = () => {
 
   const LikedProductData = likes.length === 0 ?
    <div className='emptyListDiv'>
-    <img src={EmptyList} alt='EmptyListImage'/> 
+    <img src={EmptyList} alt='EmptyListImage' className='EmptyListImage'/> 
     <h1 className='emptyList-header'>
       Wishlist is empty...
     </h1>
-    <Button variant='outlined' onClick={()=> navigate(-1)}>
+    <button onClick={()=> navigate(-1)} className='emptyList-btn'>
       <i className="ri-arrow-left-line"></i>
-    </Button>
+    </button>
    </div>: 
    <div className='liked-product-root'>
     {likes.map(ele => <SingleLikedProduct {...ele} key={ele.id}/>)}
