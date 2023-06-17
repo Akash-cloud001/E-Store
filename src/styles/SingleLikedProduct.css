@@ -2,6 +2,8 @@
     display: grid;
     place-items: center;
     height: calc(100vh - 64px);
+    overflow: hidden;
+    grid-template-rows: 3fr 1fr 1fr;
 }
 .emptyList-header{
     font-family: var(--ff-satisy);
@@ -75,4 +77,25 @@
 .liked-remove{
     border: 1px solid var(--c-red) !important;
     color: red !important;
+}
+
+@media ( max-width : 1199.98px){
+ .emptyListDiv{
+    /* height: 50vh; */
+ }   
+}
+@media ( max-width : 991.98px){
+    
+}
+@media ( max-width : 767.98px){
+    .EmptyCartImage{
+        height: 350px;
+        aspect-ratio: 1;
+    }
+}
+@media ( max-width : 575px){
+    .EmptyCartImage{
+        height: 250px;
+        aspect-ratio: 1;
+    }
 }
