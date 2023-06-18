@@ -130,13 +130,13 @@
         top: 64px;
         right: 0;
         flex-direction: column;
-        height: 50vh;
+        height: 0vh;
         gap: 2rem;
-        padding: var(--p-16px);
-        width: 0px;
+        width: 320px;
         overflow: hidden;
         border-bottom-left-radius: 4px;
         background-color: var(--c-grey-shade);
+        transition: height 250ms ease-in-out;
     }
     .NavBar-nav{
         flex-direction: column;
@@ -156,31 +156,13 @@
         text-align: center;
     }
     .NavBar-Show{
-        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
-        animation: navBarShow 150ms ease-in-out forwards;
+        height: 50vh;
+        padding: var(--p-16px);
     }
-    @keyframes navBarShow{
-        from{
-            width: 0px;
-        }
-        to{
-            width: 320px;
-        }
-    }
-    .NavBar-Hide{
-        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
-        animation: navBarHide 250ms ease-in-out forwards;
-    }
-    @keyframes navBarHide{
-        from{
-            width: 320px;
-            padding: var(--p-16px);
 
-        }
-        to{
-            width: 0px;
-            padding: 0;
-        }
+    .NavBar-Hide{
+        height: 0vh;
+        padding: 0;
     }
 
 }

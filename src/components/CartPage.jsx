@@ -70,9 +70,9 @@ const CartPage = () => {
                     </tr>
                     <tr>
                         <th colspan={2} align='center' className='table-btn'>
-                            <Button >
-                                Buy Now
-                            </Button>
+                            <button >
+                                Buy All Now
+                            </button>
                         </th>
                     </tr>
                 </tfoot>

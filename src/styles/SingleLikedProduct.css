@@ -92,7 +92,7 @@
     gap: 1rem;
 }
 .liked-btns > button{
-    font-size: medium;
+    font-size: small;
     padding: var(--p-8px) var(--p-16px);
     border-radius: 4px;
     height: max-content;
@@ -108,9 +108,7 @@
 }
 
 @media ( max-width : 1199.98px){
- .emptyListDiv{
-    /* height: 50vh; */
- }   
+ 
 }
 @media ( max-width : 991.98px){
     

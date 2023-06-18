@@ -14,13 +14,11 @@ const NavBar = () => {
 
     const handleDialogClick = ()=>{
         setChevClick(!chevClick);
-        
     }
 
     const handleHamburger = (e)=>{
         setHamburger(!hamburger);
         setChevClick(false);
-
     }
 
 

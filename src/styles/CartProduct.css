@@ -1,16 +1,112 @@
 .cart-product-container{
     display: grid;
     grid-template-columns: 0.5fr 2fr;
-    height: 300px;
+    height: 400px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     padding: var(--p-16px);
     margin-bottom: var(--m-32px) ;
     overflow: hidden;
 }
 .cart-item-image{
-    display: inline-block;
     height: 250px;
     align-self: center;
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 1 / 1;
     object-fit: contain;
+}
+.cart-item-aside{
+    height: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+}
+.cart-item-title{
+
+}
+.cart-item-cost{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.cart-item-price{
+    text-decoration: line-through;
+    color: var(--c-red);
+}
+
+.cart-item-desc{
+    text-align: justify;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    max-height: 250px;
+}
+.cart-item-desc::-webkit-scrollbar {
+    display: none;
+}
+.cart-item-desc::first-letter{
+    text-transform: uppercase;
+}
+.cart-item-btns{
+    display: flex;
+    gap: 1rem;
+}
+
+.cart-item-buy,.cart-item-remove{
+    font-size: small;
+    padding: var(--p-8px) var(--p-16px);
+    border-radius: 4px;
+    height: max-content;
+}
+.cart-item-buy{
+    border: 1px solid var(--c-green) !important;
+    color: green !important;
+}
+.cart-item-remove{
+    border: 1px solid var(--c-red) !important;
+    color: red !important;
+}
+
+
+@media ( max-width : 1199.98px){
+ 
+}
+@media ( max-width : 991.98px){
+    
+    .cart-item-price{
+        font-size: small;
+    }
+    .cart-item-final-price{
+        font-size: medium;
+    }
+    .cart-item-title,.cart-item-btns > button{
+        font-size: medium;
+    }
+    .cart-item-desc{
+        font-size: small;
+    }
+}
+@media ( max-width : 767.98px){
+    .cart-product-container{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: 600px;
+        gap: 1rem;
+        padding: var(--p-8px);
+    }
+    .cart-item-aside{
+        gap: 0.5rem;
+        height: fit-content;
+    }
+    .cart-item-image{
+        height: 240px;
+    }
+    .cart-item-desc{
+        max-height: 200px;
+    }
+    .cart-item-btns > button{
+        font-size: small;
+    }
 }
