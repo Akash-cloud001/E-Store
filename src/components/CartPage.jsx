@@ -8,6 +8,7 @@ import CartProduct from './CartProduct';
 import EmptyCart from '../images/EmptyCart.png';
 import Button from '@mui/material/Button';
 import '../styles/CartPage.css';
+import Footer from './Footer';
 
 
 const CartPage = () => {
@@ -81,6 +82,7 @@ const CartPage = () => {
     }
         
         <Gototop />
+        <Footer />
     </>
     )
 }

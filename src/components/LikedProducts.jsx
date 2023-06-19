@@ -13,6 +13,7 @@ import EmptyList from '../images/EmptyList.png'
 
 // MUI
 import Button from '@mui/material/Button';
+import Footer from './Footer';
 
 const LikedProducts = () => {
   const { likes } = useContext(UserContext);
@@ -38,6 +39,7 @@ const LikedProducts = () => {
         <NavBar />
         {LikedProductData}
         <Gototop/>
+        <Footer />
     </>
   )
 }
