@@ -55,7 +55,13 @@ const NavBar = () => {
                 
             </ul>
             <div className='user-link'>
-                    <a href=''><i className="ri-user-line"></i></a>
+                        {/* TODO 
+                            1. get user logged in
+                            2. after logged in show user profile page
+                            3. show signout button after user is logged in
+                            4. if not logged in don't redirect to user profile page
+                        */}
+                    <Link to='/signin'><i className="ri-user-line"></i></Link>
                     <Link to='/home/liked-products'>
                         <i className="ri-heart-line"></i>
                         <sup className={`user-link-like ${likes.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>
