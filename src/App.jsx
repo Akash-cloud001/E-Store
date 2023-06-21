@@ -8,9 +8,11 @@ import LikedProducts from './components/LikedProducts';
 import CartPage from './components/CartPage';
 import Signin from './components/Signin';
 import SignUp from './components/SignUp';
+import { UserAuthProvider } from './contexts/UserAuthProvider';
 
 function App() {
   return (
+    <UserAuthProvider>
       <div className='App'>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -25,6 +27,7 @@ function App() {
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </div>
+    </UserAuthProvider>
   )
 }
 

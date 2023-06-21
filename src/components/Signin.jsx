@@ -6,17 +6,42 @@ import bg from '../images/OnlineShop.png';
 const Signin = () => {
     const [value, setValue] = useState({
         email: '',
-        pass: '',
+        password: '',
 
     });
     const [error, setError] = useState('');
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        //validation for valid mailFormat
+        let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        
+        if(value.email==='' || !value.email.match(mailFormat)){
+            setError('Enter a Valid mail');
+            setTimeout(()=>{
+                setValue({email:'', password:''});
+                setError('');
+            }, 1500);
+            return;
+        }
+        else if(value.password === ''){
+            setError("Enter a password");
+            setTimeout(()=>{
+                setError('');
+            }, 1500);
+            return;
+        }
+        alert(value.password);
+        //we got here means we got a email and password for sign in a user... form firebase
+    }
+
   return (
     <div className='signin-form-container'>
 
-        <form className='signin-form'>
+        <form className='signin-form' onSubmit={handleSubmit}>
             {error === ''? null :
                 <p className='signin-error'>
-                    Fill Field Correctly
+                    {error}
                 </p>
             }
             <InputControl
@@ -26,14 +51,16 @@ const Signin = () => {
                 onChange={event =>
                     setValue((prev) => ({...prev, email: event.target.value}))
                 }
+                value = {value.email}
             />
             <InputControl
                 name = 'password'
                 id = 'password'
                 type = 'password'
                 onChange={event =>
-                    setValue((prev)=>({...prev, pass: event.target.value}))
+                    setValue((prev)=>({...prev, password: event.target.value}))
                 }
+                value = {value.password}
             />
             <button type='submit' className='signin-btn'>
                 Sign In

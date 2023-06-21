@@ -26,6 +26,9 @@
     cursor: pointer;
     height: max-content;
 }
+.signin-btn:disabled{
+    background-color: gray !important;
+}
 .signin-footer{
     font-size: small;
 }

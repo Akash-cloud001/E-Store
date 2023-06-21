@@ -21,7 +21,7 @@ export const InputControl = (props) => {
            {...props}
            className='input-control-input'
         />
-        {props.type === 'password' && 
+        {props.type === 'password' && props.name ==='password' && 
             <span onClick={handleVisibility} className='input-control-span'>
                 {visible ? <i className="ri-eye-off-line"></i> :  <i className="ri-eye-line"></i>}
             </span>
