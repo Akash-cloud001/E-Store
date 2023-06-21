@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useContext } from 'react';
 import { InputControl } from './InputControl';
 import '../styles/Sign.css';
 import { Link } from 'react-router-dom';
 import bg from '../images/OnlineShop.png';
+import { UserAuthContext } from '../contexts/Contexts';
+
+
 const Signin = () => {
+    const { submitBtn ,userSignIn, errorFirebase } = useContext(UserAuthContext);
+
     const [value, setValue] = useState({
         email: '',
         password: '',
@@ -31,8 +36,9 @@ const Signin = () => {
             }, 1500);
             return;
         }
-        alert(value.password);
         //we got here means we got a email and password for sign in a user... form firebase
+        userSignIn(value.email, value.password);
+        setValue({email:'', password:''});
     }
 
   return (
@@ -42,6 +48,11 @@ const Signin = () => {
             {error === ''? null :
                 <p className='signin-error'>
                     {error}
+                </p>
+            }
+            {errorFirebase === ''? null: 
+                <p className='signin-error'>
+                    {errorFirebase}
                 </p>
             }
             <InputControl
@@ -62,7 +73,7 @@ const Signin = () => {
                 }
                 value = {value.password}
             />
-            <button type='submit' className='signin-btn'>
+            <button type='submit' className='signin-btn' disabled={submitBtn}>
                 Sign In
             </button>
 

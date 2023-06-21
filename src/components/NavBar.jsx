@@ -1,9 +1,14 @@
 import React, { useContext, useState } from 'react'
-import '../styles/NavBar.css'
-import { UserContext } from '../contexts/Contexts';
+import '../styles/NavBar.css';
+
+import { UserContext, UserAuthContext } from '../contexts/Contexts';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
+    const { isAuth, userData } = useContext(UserAuthContext);
+
+
+
     const { likes, cart} = useContext(UserContext);
 
     const [chevClick , setChevClick] = useState(false);
@@ -61,7 +66,13 @@ const NavBar = () => {
                             3. show signout button after user is logged in
                             4. if not logged in don't redirect to user profile page
                         */}
-                    <Link to='/signin'><i className="ri-user-line"></i></Link>
+                    {isAuth? <Link to={`user/${userData.uid}`}>
+                        <i className="ri-user-line"></i>
+                    </Link> 
+                    :
+                    <Link to='/signin'>
+                        <i className="ri-user-line"></i>
+                    </Link>}
                     <Link to='/home/liked-products'>
                         <i className="ri-heart-line"></i>
                         <sup className={`user-link-like ${likes.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>

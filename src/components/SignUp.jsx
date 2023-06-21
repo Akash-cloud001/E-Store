@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { InputControl } from './InputControl';
 import '../styles/Sign.css';
 import { Link } from 'react-router-dom';
@@ -45,8 +45,8 @@ const SignUp = () => {
             return;
         }
         //if comes here means we have validated email && password now need to connect it with firebase ..
+        userSignUp(value.name ,value.email, value.password);
         setValue({name:'',email:'', password:'', rewritePassword:''});
-        return userSignUp(value.name ,value.email, value.password);
     }
 
 

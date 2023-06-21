@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from 'react';
+import { auth } from './firebase';
 import { Route, Routes,Link } from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
@@ -8,16 +10,17 @@ import LikedProducts from './components/LikedProducts';
 import CartPage from './components/CartPage';
 import Signin from './components/Signin';
 import SignUp from './components/SignUp';
-import { UserAuthProvider } from './contexts/UserAuthProvider';
-
+import { UserAuthContext } from './contexts/Contexts';
+import UserProfile from './components/UserProfile';
 function App() {
+  
   return (
-    <UserAuthProvider>
       <div className='App'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path={`/user/:userId`} element={<UserProfile />}/>
           <Route path='/home/women' element={<PageProducts products={WOMEN_PRODUCTS}/>}/>
           <Route path='/home/men' element={<PageProducts products={MEN_PRODUCTS}/>}/>
           <Route path='/home/accessories' element={<PageProducts products={ACCESSORIES_PRODUCTS}/>}/>
@@ -27,7 +30,6 @@ function App() {
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </div>
-    </UserAuthProvider>
   )
 }
 
