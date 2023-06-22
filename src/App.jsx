@@ -10,7 +10,6 @@ import LikedProducts from './components/LikedProducts';
 import CartPage from './components/CartPage';
 import Signin from './components/Signin';
 import SignUp from './components/SignUp';
-import { UserAuthContext } from './contexts/Contexts';
 import UserProfile from './components/UserProfile';
 function App() {
   

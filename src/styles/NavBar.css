@@ -93,6 +93,8 @@
 
 .user-link{
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: var(--p-16px);
 
 }
@@ -118,6 +120,18 @@
 
 .toggle-button{
     display: none;
+}
+
+.user-signing{
+    color: var(--c-white);
+    font-size: larger;
+    display: grid;
+    place-items: center !important;
+    /* position: relative; */
+  
+}
+.dialog-btn{
+    height: fit-content !important;
 }
 
 
@@ -179,11 +193,23 @@
         width: 13%;
     }
     .toggle-button{
-        font-size: large;
+        font-size: large ;
+    }
+    .user-signing{
+        height: 19.2px;
+        width: 19.2px;
+        display: grid;
+        place-items: center !important;
+    }
+    .user-signing > svg{
+        height: 100%;
+        width: 100%;
+        align-self: center;
     }
 }
 @media ( max-width : 575px){
     .NavBar-Search {
         width: 60%;
     }
+    
 }

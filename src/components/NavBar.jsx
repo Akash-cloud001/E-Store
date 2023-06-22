@@ -2,17 +2,27 @@ import React, { useContext, useState } from 'react'
 import '../styles/NavBar.css';
 
 import { UserContext, UserAuthContext } from '../contexts/Contexts';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const NavBar = () => {
-    const { isAuth, userData } = useContext(UserAuthContext);
-
+    const { isAuth, userData, userSignOut } = useContext(UserAuthContext);
+    const navigate = useNavigate();
 
 
     const { likes, cart} = useContext(UserContext);
 
     const [chevClick , setChevClick] = useState(false);
     const [hamburger, setHamburger] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const categories = ['women', 'men', 'accessories', 'cosmetic'];
 
@@ -24,6 +34,21 @@ const NavBar = () => {
     const handleHamburger = (e)=>{
         setHamburger(!hamburger);
         setChevClick(false);
+    }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+
+    const handleUserSignOut = (e)=>{
+        e.preventDefault();
+        setOpen(false);
+        navigate('/');
+        userSignOut();
     }
 
 
@@ -81,6 +106,54 @@ const NavBar = () => {
                         <i className="ri-shopping-cart-line"></i>
                         <sup className={`user-link-like ${cart.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>
                     </Link>
+                    {isAuth? 
+                        <>
+                            <button className='user-signing' onClick={handleClickOpen} >
+                                {/* <i className="ri-logout-circle-r-line"></i> */}
+                                <LogoutIcon />
+                            </button> 
+                            <Dialog
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                                // PaperProps={{sx : {position:'fixed', background:'yellow'}}}
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                {"Are you sure you wish to logout?"}
+                                </DialogTitle>
+                                {/* <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Are you sure you wish to logout?
+                                </DialogContentText>
+                                </DialogContent> */}
+                                <DialogActions>
+                                <Button 
+                                    className='dialog-btn'
+                                    size='small' 
+                                    variant='outlined' 
+                                    color='error' 
+                                    onClick={handleClose}
+                                    >
+                                        <ClearIcon />
+                                    </Button>
+                                <Button 
+                                    className='dialog-btn'
+                                    size='small' 
+                                    variant='outlined' 
+                                    color='success' 
+                                    onClick={handleUserSignOut} 
+                                    autoFocus>
+                                        <CheckIcon/>
+                                </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </>
+                        : 
+                        <Link to='/signin' className='user-signing'>
+                            <LoginIcon />
+                        </Link>
+                    }
             </div>
         </aside>
         <button className='toggle-button' onClick={handleHamburger}>

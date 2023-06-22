@@ -1,7 +1,7 @@
 import React from "react";
 import { UserAuthContext } from './Contexts';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword,updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,updateProfile } from 'firebase/auth';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -58,6 +58,13 @@ export const UserAuthProvider = (props)=>{
 
     function userSignOut(){
         //signout
+        signOut(auth).then(()=>{
+            setIsAuth(false);
+            setUserData({});
+            alert('Success');
+        }).catch((error)=>{
+            console.log(error);
+        })
     }
 
     // accessing current user who is authenticated
