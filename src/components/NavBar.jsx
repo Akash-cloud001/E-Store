@@ -109,7 +109,6 @@ const NavBar = () => {
                     {isAuth? 
                         <>
                             <button className='user-signing' onClick={handleClickOpen} >
-                                {/* <i className="ri-logout-circle-r-line"></i> */}
                                 <LogoutIcon />
                             </button> 
                             <Dialog
@@ -117,16 +116,10 @@ const NavBar = () => {
                                 onClose={handleClose}
                                 aria-labelledby="alert-dialog-title"
                                 aria-describedby="alert-dialog-description"
-                                // PaperProps={{sx : {position:'fixed', background:'yellow'}}}
                             >
                                 <DialogTitle id="alert-dialog-title">
                                 {"Are you sure you wish to logout?"}
                                 </DialogTitle>
-                                {/* <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
-                                    Are you sure you wish to logout?
-                                </DialogContentText>
-                                </DialogContent> */}
                                 <DialogActions>
                                 <Button 
                                     className='dialog-btn'
@@ -157,7 +150,11 @@ const NavBar = () => {
             </div>
         </aside>
         <button className='toggle-button' onClick={handleHamburger}>
-            {!hamburger ? <i class="ri-menu-fold-line"></i> : <i class="ri-menu-unfold-line"></i>}
+            {
+                !hamburger ? 
+                <i className="ri-menu-fold-line"></i> : 
+                <i className="ri-menu-unfold-line"></i>
+            }
         </button>
     </div>
   )

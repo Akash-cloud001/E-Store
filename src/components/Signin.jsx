@@ -29,7 +29,7 @@ const Signin = () => {
             }, 1500);
             return;
         }
-        else if(value.password === ''){
+        else if(value.password === '' || value.password.length < 6){
             setError("Enter a password");
             setTimeout(()=>{
                 setError('');
@@ -58,7 +58,7 @@ const Signin = () => {
             <InputControl
                 name = 'Email'
                 id = 'email'
-                type = 'text'
+                type = 'email'
                 onChange={event =>
                     setValue((prev) => ({...prev, email: event.target.value}))
                 }

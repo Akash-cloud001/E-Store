@@ -1,0 +1,66 @@
+.user-main{
+    min-height: 90vh;
+    width: 95%;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: var(--p-16px) ;
+    gap: 1rem;
+    font-family: var(--ff-roboto) ;
+}
+.user-aside{
+    display: grid;
+    grid-template-rows: 0.25fr 1fr 1fr 0.25fr;
+    place-items: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+}
+
+.user-name{
+    font-size: x-large;
+    font-weight: bolder;
+    color: var(--c-blue);
+}
+.user-name::first-letter{
+    color: var(--c-blue);
+}
+
+.user-avatar{
+    height: 200px !important;
+    width: 200px !important;
+    font-size: 100px !important;
+    border: none;
+    outline: solid var(--c-blue) 4px;
+    outline-offset: 2px;
+}
+
+.signout-btn{
+    color: var(--c-white);
+    font-weight: bold;
+    width: 60%;
+    padding: var(--p-8px);
+    text-align: center;
+    background-color: var(--c-light-red);
+    border-radius: 4px;
+}
+
+
+
+
+.user-section{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.user-section-per-info{
+    display: grid;
+    gap: 2rem;
+    /* width: 100%; */
+
+}
+.user-section-btn-cont{
+    display: flex;
+    gap: 1rem;
+}
+.user-section-btn{
+    width: max-content !important;
+    height: max-content !important;
+}

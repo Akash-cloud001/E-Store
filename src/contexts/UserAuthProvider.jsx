@@ -11,8 +11,10 @@ export const UserAuthProvider = (props)=>{
     const [errorFirebase, setErrorFirebase] = useState('');
     const [isAuth, setIsAuth] = useState(false);
     const [userData, setUserData] = useState({});
+    
     const navigate = useNavigate();
-    console.log(userData.uid)
+
+
     function userSignUp(name,email, password){
         setSubmitBtn(true);
         createUserWithEmailAndPassword(auth, email,password).then(async(res)=>{
@@ -70,7 +72,6 @@ export const UserAuthProvider = (props)=>{
     // accessing current user who is authenticated
     useEffect(()=>{
         auth.onAuthStateChanged((user)=>{
-          console.log(user);
           JSON.stringify(user);
           if(user){
             setUserData({...user});

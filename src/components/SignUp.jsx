@@ -36,6 +36,14 @@ const SignUp = () => {
             }, 1500);
             return;
         }
+        else if(value.password.length < 6){
+            setError("Password should be of 6 digits");
+            setTimeout(()=>{
+                setValue((prev)=>({...prev, password: '', rewritePassword: ''}));
+                setError('');
+            }, 1500);
+            return;
+        }
         else if(value.password !== value.rewritePassword){
             setError("Password doesn't match");
             setTimeout(()=>{

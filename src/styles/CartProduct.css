@@ -22,9 +22,7 @@
     align-items: flex-start;
     gap: 1rem;
 }
-.cart-item-title{
 
-}
 .cart-item-cost{
     display: flex;
     align-items: center;
