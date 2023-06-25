@@ -11,12 +11,13 @@ import CartPage from './components/CartPage';
 import Signin from './components/Signin';
 import SignUp from './components/SignUp';
 import UserProfile from './components/UserProfile';
+import { UserAuthContext } from './contexts/Contexts';
 function App() {
-  
+  const {isAuth} = useContext(UserAuthContext);
   return (
       <div className='App'>
         <Routes>
-          <Route path='/' element={<UserProfile />} />
+          <Route path='/' element={<Home />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path={`/user/:userId`} element={<UserProfile />}/>

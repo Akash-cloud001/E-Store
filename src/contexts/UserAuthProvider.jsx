@@ -1,7 +1,7 @@
 import React from "react";
 import { UserAuthContext } from './Contexts';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut,updateEmail,updatePhoneNumber,updateProfile } from 'firebase/auth';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -43,12 +43,10 @@ export const UserAuthProvider = (props)=>{
         //singin code
         setSubmitBtn(true);
         signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
-            console.log(res);
             setSubmitBtn(false);            
             navigate('/');
         })
         .catch((err)=>{
-            console.log(err);
             setErrorFirebase(err.message);
             setTimeout(()=>{
                 setErrorFirebase('');
@@ -68,12 +66,18 @@ export const UserAuthProvider = (props)=>{
             console.log(error);
         })
     }
+    //
+
+    function updateUserInfo(uid, name, email, phoneNumber){
+        //TODO need to done
+    }
 
     // accessing current user who is authenticated
     useEffect(()=>{
         auth.onAuthStateChanged((user)=>{
           JSON.stringify(user);
           if(user){
+            console.log(user);
             setUserData({...user});
             setIsAuth(true);
           }

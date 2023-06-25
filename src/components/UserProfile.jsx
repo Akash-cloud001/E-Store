@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NavBar from './NavBar';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
@@ -20,21 +20,23 @@ import CheckIcon from '@mui/icons-material/Check';
 import '../styles/UserProfile.css';
 import { InputControl } from './InputControl';
 import { Button } from '@mui/material';
+import { UserAuthContext } from '../contexts/Contexts';
 
 const UserProfile = () => {
-  const [value, setValue] = useState('1');
+  const { userData } = useContext(UserAuthContext);
 
+  const [value, setValue] = useState('1');
   const [userAvatarColor, setUserAvatarColor] = useState('');
   const [editUserData, setEditUserData] = useState({
-    name: 'Akash',
-    email: 'test@test.com',
-    phoneNumber: '8441816561',
-    address: 'ward no 5, Maleta, Dehra Gopipur, Kangra, 177101, Hp, India',
+    name: userData.displayName,
+    email: userData.email,
+    phoneNumber: userData.phoneNumber,
   });
 
   const [isEditable,  setIsEditable] = useState(true);
   const [open, setOpen] = useState(false);
-  
+  const [error, setError] = useState('');
+
 // For Edit Button
   const handleEdit= ()=>{
     setIsEditable(false);
@@ -43,15 +45,40 @@ const UserProfile = () => {
   const handleCancel = ()=>{
     setIsEditable(true);
   }
-// For calling method in AuthProvier
-  const handleDataChange = ()=>{
-    //call method from userAuthProvider and send the values to change in DB
-  }
 
 // Dialog open and close methods
-  const handleClickOpen = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
+        //validation for valid mailFormat
+        let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let phoneFormat = /^\d{10}$/ ;
+
+        if(editUserData.email==='' || !editUserData.email.match(mailFormat)){
+            setError('Enter a Valid mail');
+            setTimeout(()=>{
+                setEditUserData((prev)=>({...prev, email:''}));
+                setError('');
+            }, 1500);
+            return;
+        }
+        if((editUserData.phoneNumber) === '' || editUserData.phoneNumber.length < 10){
+          setError('Enter a Valid number');
+          setTimeout(()=>{
+              setEditUserData((prev)=>({...prev, phoneNumber:''}));
+              setError('');
+          }, 1500);
+          return;
+        }
     setOpen(true);
   };
+
+// For calling method in AuthProvier
+const handleDataChange = ()=>{
+  //call method from userAuthProvider and send the values to change in DB
+  // updateUserInfo(userData.uid, editUserData.name, editUserData.email, editUserData.phoneNumber);
+  setIsEditable(true);
+  handleClose();
+}
 
   const handleClose = () => {
     setOpen(false);
@@ -115,7 +142,11 @@ const UserProfile = () => {
                   </TabList>
                 </Box>
                 <TabPanel value="1" className='user-section-per-info'>
-                  <div>
+                  {error === ''? null :
+                  <p className='signin-error'>
+                      {error}
+                  </p>
+                  }
                   <InputControl 
                     name = 'name'
                     id = 'userName'
@@ -126,14 +157,13 @@ const UserProfile = () => {
                     value = {editUserData.name}
                     disabled = {isEditable}
                   />
-                  </div>
-                  <InputControl
-                    name = 'Email'
+                  <InputControl 
+                    name = 'email'
                     id = 'userEmail'
                     type = 'email'
-                    onChange={event =>
-                        setValue((prev) => ({...prev, email: event.target.value}))
-                    }
+                    onChange = {event =>{
+                      setEditUserData((prev)=>({...prev, email: event.target.value}))
+                    }}
                     value = {editUserData.email}
                     disabled = {isEditable}
                   />
@@ -148,17 +178,7 @@ const UserProfile = () => {
                     value = {editUserData.phoneNumber}
                     disabled = {isEditable}
                   />
-                  <InputControl
-                    name = 'Address'
-                    id = 'address'
-                    type = 'text' 
-                    placeholder = 'house no, city, district, pincode, State, Country'
-                    onChange = {event =>{
-                      setEditUserData((prev)=>({...prev, address: event.target.value}))
-                    }}
-                    value = {editUserData.address}
-                    disabled = {isEditable}
-                  />
+
                   <div className='user-section-btn-cont'>
 
                     <Button variant='outlined' className='user-section-btn' onClick={handleEdit} disabled={!isEditable}>
@@ -169,7 +189,7 @@ const UserProfile = () => {
                       Cancel
                     </Button>
 
-                    <Button variant='outlined' color='success' className='user-section-btn' onClick={handleClickOpen} disabled={isEditable}>
+                    <Button variant='outlined' color='success' className='user-section-btn' onClick={handleSave} disabled={isEditable}>
                       Save
                     </Button>
                     <Dialog
