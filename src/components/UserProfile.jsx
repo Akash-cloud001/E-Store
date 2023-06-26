@@ -28,62 +28,11 @@ const UserProfile = () => {
   const [value, setValue] = useState('1');
   const [userAvatarColor, setUserAvatarColor] = useState('');
   const [editUserData, setEditUserData] = useState({
-    name: userData.displayName,
-    email: userData.email,
-    phoneNumber: userData.phoneNumber,
+    // name: userData.displayName,
+    // email: userData.email,
+    name: 'David',
+    email: 'david@test.com',
   });
-
-  const [isEditable,  setIsEditable] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [error, setError] = useState('');
-
-// For Edit Button
-  const handleEdit= ()=>{
-    setIsEditable(false);
-  }
-// For Cancel Button
-  const handleCancel = ()=>{
-    setIsEditable(true);
-  }
-
-// Dialog open and close methods
-  const handleSave = (e) => {
-    e.preventDefault();
-        //validation for valid mailFormat
-        let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        let phoneFormat = /^\d{10}$/ ;
-
-        if(editUserData.email==='' || !editUserData.email.match(mailFormat)){
-            setError('Enter a Valid mail');
-            setTimeout(()=>{
-                setEditUserData((prev)=>({...prev, email:''}));
-                setError('');
-            }, 1500);
-            return;
-        }
-        if((editUserData.phoneNumber) === '' || editUserData.phoneNumber.length < 10){
-          setError('Enter a Valid number');
-          setTimeout(()=>{
-              setEditUserData((prev)=>({...prev, phoneNumber:''}));
-              setError('');
-          }, 1500);
-          return;
-        }
-    setOpen(true);
-  };
-
-// For calling method in AuthProvier
-const handleDataChange = ()=>{
-  //call method from userAuthProvider and send the values to change in DB
-  // updateUserInfo(userData.uid, editUserData.name, editUserData.email, editUserData.phoneNumber);
-  setIsEditable(true);
-  handleClose();
-}
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
 
   useEffect(()=>{
     setUserAvatarColor(chooseRandomColor());
@@ -113,15 +62,15 @@ const handleDataChange = ()=>{
           
           <aside className='user-aside'>
             <p className='user-name'>
-              Welcome Akash 
+              Welcome {editUserData.name} 
             </p> 
 
-            <Avatar {...nameSplit('Akash')} className='user-avatar'/>
+            <Avatar {...nameSplit(editUserData.name)} className='user-avatar'/>
 
             <div className='user-profile-action'>
               {/* TODO create a button which will take user pic and upload it to the firebase */}
               <button>
-
+                Add New Profile 
               </button>
             </div>
 
@@ -137,16 +86,11 @@ const handleDataChange = ()=>{
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <TabList onChange={handleChange} aria-label="User-data" centered>
-                    <Tab label="Personal Information" value="1" />
-                    <Tab label="History" value="2" />
+                    <Tab label="Personal Information" value="1" className='user-tablist'/>
+                    <Tab label="History" value="2" className='user-tablist'/>
                   </TabList>
                 </Box>
                 <TabPanel value="1" className='user-section-per-info'>
-                  {error === ''? null :
-                  <p className='signin-error'>
-                      {error}
-                  </p>
-                  }
                   <InputControl 
                     name = 'name'
                     id = 'userName'
@@ -155,7 +99,7 @@ const handleDataChange = ()=>{
                       setEditUserData((prev)=>({...prev, name: event.target.value}))
                     }}
                     value = {editUserData.name}
-                    disabled = {isEditable}
+                    disabled 
                   />
                   <InputControl 
                     name = 'email'
@@ -165,64 +109,8 @@ const handleDataChange = ()=>{
                       setEditUserData((prev)=>({...prev, email: event.target.value}))
                     }}
                     value = {editUserData.email}
-                    disabled = {isEditable}
+                    disabled 
                   />
-                  <InputControl
-                    name = 'Phone Number'
-                    id = 'phoneNumber'
-                    type = 'tel' 
-                    pattern = '[0-9]{10}'
-                    onChange = {event =>{
-                      setEditUserData((prev)=>({...prev, phoneNumber: event.target.value}))
-                    }}
-                    value = {editUserData.phoneNumber}
-                    disabled = {isEditable}
-                  />
-
-                  <div className='user-section-btn-cont'>
-
-                    <Button variant='outlined' className='user-section-btn' onClick={handleEdit} disabled={!isEditable}>
-                      Edit
-                    </Button>
-
-                    <Button variant='outlined' color='error' className='user-section-btn' onClick={handleCancel} disabled={isEditable}>
-                      Cancel
-                    </Button>
-
-                    <Button variant='outlined' color='success' className='user-section-btn' onClick={handleSave} disabled={isEditable}>
-                      Save
-                    </Button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                      {"Are you sure you wish to Change Data?"}
-                      </DialogTitle>
-                      <DialogActions>
-                      <Button 
-                          className='dialog-btn'
-                          size='small' 
-                          variant='outlined' 
-                          color='error' 
-                          onClick={handleClose}
-                          >
-                              <ClearIcon />
-                          </Button>
-                      <Button 
-                          className='dialog-btn'
-                          size='small' 
-                          variant='outlined' 
-                          color='success' 
-                          onClick={handleDataChange} 
-                          autoFocus>
-                              <CheckIcon/>
-                      </Button>
-                      </DialogActions>
-                  </Dialog>
-                  </div>
                 </TabPanel>
                 <TabPanel value="2">Item Two</TabPanel>
               </TabContext>

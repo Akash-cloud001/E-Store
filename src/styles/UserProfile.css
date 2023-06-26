@@ -1,5 +1,5 @@
 .user-main{
-    min-height: 90vh;
+    min-height: 91vh;
     width: 95%;
     margin-inline: auto;
     display: grid;
@@ -13,7 +13,8 @@
     grid-template-rows: 0.25fr 1fr 1fr 0.25fr;
     place-items: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+    gap: 1rem;
+    padding: var(--p-16px);
 }
 
 .user-name{
@@ -26,14 +27,17 @@
 }
 
 .user-avatar{
-    height: 200px !important;
-    width: 200px !important;
-    font-size: 100px !important;
+    height: 150px !important;
+    width: 150px !important;
+    font-size: 90px !important;
     border: none;
     outline: solid var(--c-blue) 4px;
     outline-offset: 2px;
 }
-
+.user-profile-action > button{
+    font-size: small;
+    font-weight: bold;
+}
 .signout-btn{
     color: var(--c-white);
     font-weight: bold;
@@ -63,4 +67,44 @@
 .user-section-btn{
     width: max-content !important;
     height: max-content !important;
+}
+@media ( max-width : 1199.98px){
+    
+}
+@media ( max-width : 991.98px){
+    .user-avatar{
+        height: 130px !important;
+        width: 130px !important;
+        font-size: 90px !important;
+    }
+}
+@media ( max-width : 767.98px){
+    
+    .user-main{
+        grid-template-columns: 1fr;
+    }
+    .user-avatar{
+        height: 100px !important;
+        width: 100px !important;
+        font-size: 50px !important;
+    }
+    .signout-btn{
+        display: none;
+    }
+    .user-aside{
+        max-height: 263.77px;
+        grid-template-rows: 0.25fr 2fr 0.25fr;
+        
+    }
+    .user-section{
+        min-height: 278px;
+    }
+}
+@media ( max-width : 575px){
+
+    .user-tablist{
+        font-size: small !important;
+        padding: 8px 12px !important;
+    }
+    
 }

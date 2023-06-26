@@ -1,7 +1,7 @@
 import React from "react";
 import { UserAuthContext } from './Contexts';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut,updateEmail,updatePhoneNumber,updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
