@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { chooseRandomColor } from "../helperFunction";
 
 export const UserAuthProvider = (props)=>{
     //TODO - create a user -->SignUp; then make it as a current user via -->SignIn; Create a signout method so that user can signout from the application..
@@ -11,14 +12,15 @@ export const UserAuthProvider = (props)=>{
     const [errorFirebase, setErrorFirebase] = useState('');
     const [isAuth, setIsAuth] = useState(false);
     const [userData, setUserData] = useState({});
-    
+
+    const [userAvatarColor, setUserAvatarColor] = useState('');
+
     const navigate = useNavigate();
 
 
-    function userSignUp(name,email, password){
+    async function userSignUp(name,email, password){
         setSubmitBtn(true);
-        createUserWithEmailAndPassword(auth, email,password).then(async(res)=>{
-            console.log(res);
+        await createUserWithEmailAndPassword(auth, email,password).then(async(res)=>{
             setSubmitBtn(false);
 
             // to update user name 
@@ -29,7 +31,6 @@ export const UserAuthProvider = (props)=>{
             navigate('/signin');
         })
         .catch((err)=>{
-            console.log(err);
             setErrorFirebase(err.message);
             setTimeout(()=>{
                 setErrorFirebase('');
@@ -39,10 +40,10 @@ export const UserAuthProvider = (props)=>{
         return;
     }
 
-    function userSignIn(email, password){
+    async function userSignIn(email, password){
         //singin code
         setSubmitBtn(true);
-        signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
+        await signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
             setSubmitBtn(false);            
             navigate('/');
         })
@@ -61,7 +62,7 @@ export const UserAuthProvider = (props)=>{
         signOut(auth).then(()=>{
             setIsAuth(false);
             setUserData({});
-            alert('Success');
+            navigate('/');
         }).catch((error)=>{
             console.log(error);
         })
@@ -77,16 +78,26 @@ export const UserAuthProvider = (props)=>{
         auth.onAuthStateChanged((user)=>{
           JSON.stringify(user);
           if(user){
-            console.log(user);
             setUserData({...user});
             setIsAuth(true);
           }
         });
       }, []);
-
+      useEffect(()=>{
+        setUserAvatarColor(chooseRandomColor());
+      },[])
 
     return(
-        <UserAuthContext.Provider value={{submitBtn, errorFirebase, userSignUp, userSignIn, userSignOut, isAuth, userData}}>
+        <UserAuthContext.Provider value={{
+                    submitBtn, 
+                    errorFirebase, 
+                    userSignUp, 
+                    userSignIn, 
+                    userSignOut, 
+                    isAuth, 
+                    userData, 
+                    userAvatarColor
+                }}>
             {props.children}
         </UserAuthContext.Provider>
     )

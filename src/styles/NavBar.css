@@ -114,6 +114,15 @@
     border-radius: 50%;
     background-color: var(--c-red);
 }
+.user-nav-avatar{
+    height: 24px !important;
+    width: 24px !important;
+    font-size: smaller !important;
+    text-transform: uppercase;
+    border: none;
+    outline: solid var(--c-blue) 1px;
+    outline-offset: 1px;
+}
 .user-link-like-has-no-data{
     border: none;
 }

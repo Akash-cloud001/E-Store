@@ -34,8 +34,20 @@ export const COLORS = [
     "#95a5a6",
 ]
 
+
 export function chooseRandomColor(){
     let randomIdx = Math.floor(Math.random() * COLORS.length);
     const color = COLORS[randomIdx];
     return color;
+}
+
+export function nameSplit(userName, userAvatarColor){
+    const splitedName = userName.split(' ', 1);  // split( seperator, limitor ) 
+    const firstLetter = splitedName[0].split('',1).at(0);
+    return {
+      sx:{
+        bgcolor : userAvatarColor,
+      },
+      children : firstLetter,
+    }
 }

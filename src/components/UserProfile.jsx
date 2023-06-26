@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 
-import { chooseRandomColor } from '../UserProfileColors';
+import { nameSplit } from '../helperFunction';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -11,49 +11,30 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Avatar from '@mui/material/Avatar';
-import ClearIcon from '@mui/icons-material/Clear';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
-import CheckIcon from '@mui/icons-material/Check';
+
 
 import '../styles/UserProfile.css';
 import { InputControl } from './InputControl';
-import { Button } from '@mui/material';
 import { UserAuthContext } from '../contexts/Contexts';
 
 const UserProfile = () => {
-  const { userData } = useContext(UserAuthContext);
+  const { userData, userAvatarColor, userSignOut } = useContext(UserAuthContext);
 
   const [value, setValue] = useState('1');
-  const [userAvatarColor, setUserAvatarColor] = useState('');
+  
   const [editUserData, setEditUserData] = useState({
-    // name: userData.displayName,
-    // email: userData.email,
-    name: 'David',
-    email: 'david@test.com',
+    name: userData.displayName,
+    email: userData.email,
+    // name: 'David',
+    // email: 'david@test.com',
   });
 
-  useEffect(()=>{
-    setUserAvatarColor(chooseRandomColor());
-  },[])
+
 
 // For tabs
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-
-  function nameSplit(userName){
-    const splitedName = userName.split(' ', 1);  // split( seperator, limitor ) 
-    const firstLetter = splitedName[0].split('',1).at(0);
-    return {
-      sx:{
-        bgcolor : userAvatarColor,
-      },
-      children : firstLetter,
-    }
-  }
 
   return (
       <>
@@ -65,7 +46,7 @@ const UserProfile = () => {
               Welcome {editUserData.name} 
             </p> 
 
-            <Avatar {...nameSplit(editUserData.name)} className='user-avatar'/>
+            <Avatar {...nameSplit(editUserData.name, userAvatarColor)} className='user-avatar'/>
 
             <div className='user-profile-action'>
               {/* TODO create a button which will take user pic and upload it to the firebase */}
@@ -74,9 +55,9 @@ const UserProfile = () => {
               </button>
             </div>
 
-            <Link className='signout-btn'>
+            <button className='signout-btn' onClick={()=>{userSignOut()}}>
               Sign Out
-            </Link>
+            </button>
 
           </aside>
 

@@ -3,6 +3,7 @@ import '../styles/NavBar.css';
 
 import { UserContext, UserAuthContext } from '../contexts/Contexts';
 import { Link, useNavigate } from 'react-router-dom';
+import { nameSplit } from '../helperFunction';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -12,11 +13,13 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Avatar from '@mui/material/Avatar';
 
 const NavBar = () => {
-    const { isAuth, userData, userSignOut } = useContext(UserAuthContext);
+    const { isAuth, userData, userSignOut, userAvatarColor } = useContext(UserAuthContext);
+    const userName = userData.displayName; 
+    const uid = userData.uid;
     const navigate = useNavigate();
-
 
     const { likes, cart} = useContext(UserContext);
 
@@ -47,10 +50,13 @@ const NavBar = () => {
     const handleUserSignOut = (e)=>{
         e.preventDefault();
         setOpen(false);
-        navigate('/');
         userSignOut();
     }
-
+    const handleUserProfileBtn = (e)=>{
+        e.preventDefault();
+        navigate(`/user/${uid}`);
+        console.log('clicked');
+    }
 
     const chevron = chevClick ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>;
   return (
@@ -85,15 +91,10 @@ const NavBar = () => {
                 
             </ul>
             <div className='user-link'>
-                        {/* TODO 
-                            1. get user logged in
-                            2. after logged in show user profile page
-                            3. show signout button after user is logged in
-                            4. if not logged in don't redirect to user profile page
-                        */}
-                    {isAuth? <Link to={`user/${userData.uid}`}>
-                        <i className="ri-user-line"></i>
-                    </Link> 
+                        
+                    {isAuth? <button onClick={handleUserProfileBtn}>
+                        <Avatar {...nameSplit(userName, userAvatarColor)} className='user-nav-avatar' />
+                    </button> 
                     :
                     <Link to='/signin'>
                         <i className="ri-user-line"></i>
