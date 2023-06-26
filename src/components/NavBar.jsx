@@ -61,14 +61,12 @@ const NavBar = () => {
     const chevron = chevClick ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>;
   return (
     <div className='NavBar'>
-        {/* Logo */}
         <h2 className='NavBar-header'>
             E-Store
         </h2>
         <form className='NavBar-Search'>
             <input type='search' placeholder='search'></input>
             <button type='submit'>
-                {/* Icon */}
                 <i className="ri-search-2-line"></i>
             </button>
         </form>
@@ -92,13 +90,16 @@ const NavBar = () => {
             </ul>
             <div className='user-link'>
                         
-                    {isAuth? <button onClick={handleUserProfileBtn}>
-                        <Avatar {...nameSplit(userName, userAvatarColor)} className='user-nav-avatar' />
-                    </button> 
-                    :
-                    <Link to='/signin'>
-                        <i className="ri-user-line"></i>
-                    </Link>}
+                    {isAuth? 
+                        <button onClick={handleUserProfileBtn}  className='user-nav-avatar-cont'>
+                            <Avatar {...nameSplit(userName, userAvatarColor)} className='user-nav-avatar' />
+                        </button> 
+                        :
+                        <Link to='/signin'>
+                            <i className="ri-user-line"></i>
+                        </Link>
+                    }
+
                     <Link to='/home/liked-products'>
                         <i className="ri-heart-line"></i>
                         <sup className={`user-link-like ${likes.length === 0 ? 'user-link-like-has-no-data' : 'user-link-like-has-data'}`}></sup>
@@ -110,7 +111,7 @@ const NavBar = () => {
                     {isAuth? 
                         <>
                             <button className='user-signing' onClick={handleClickOpen} >
-                                <LogoutIcon />
+                                <i className="ri-logout-box-line"></i>
                             </button> 
                             <Dialog
                                 open={open}
@@ -145,7 +146,7 @@ const NavBar = () => {
                         </>
                         : 
                         <Link to='/signin' className='user-signing'>
-                            <LoginIcon />
+                            <i className="ri-login-box-line"></i>
                         </Link>
                     }
             </div>

@@ -1,18 +1,36 @@
 import React, { useContext, useState } from 'react';
 import '../styles/SingleProduct.css';
-import { UserContext } from '../contexts/Contexts';
+import { UserAuthContext, UserContext } from '../contexts/Contexts';
 import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-const SingleProduct = ({id,image,title,description,price}) => {
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router';
 
+
+
+const SingleProduct = ({id,image,title,description,price}) => {
+  const {isAuth} = useContext(UserAuthContext);
   const { handleSetLikes, handleCartItem} = useContext(UserContext);
   const [likeOpen, setLikeOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const navigate = useNavigate();
+  //Dialog
+  const [open, setOpen] = useState(false);
 
-
-
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleRedirect = () => {
+    navigate('/signin')
+    setOpen(false);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   let currency = '$'; //future update if we go globally we would change it as per country
   let desc = ''; // to keep the description in 50 words
@@ -124,9 +142,48 @@ const SingleProduct = ({id,image,title,description,price}) => {
         </div>
         <p className='product-desciption'>{desc}</p>
         <div className='product-action'>
-            <button className='like-btn' onClick={handleLikeButton}>
-              <i className='ri-heart-3-fill'></i>
-            </button>
+            {isAuth ? 
+              <button className='like-btn' onClick={handleLikeButton}>
+                <i className='ri-heart-3-fill'></i>
+              </button>
+              :
+              <>
+                <button className='like-btn' onClick={handleOpen}>
+                <i className='ri-heart-3-fill'></i>
+              </button>
+              <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+              >
+                  <DialogTitle id="alert-dialog-title">
+                  {"Need to Sign-in for this action"}
+                  </DialogTitle>
+                  <DialogActions>
+                  <Button 
+                      className='dialog-btn'
+                      size='small' 
+                      variant='outlined' 
+                      color='error' 
+                      onClick={handleClose}
+                      >
+                         Continue
+                      </Button>
+                  <Button 
+                      className='dialog-btn'
+                      size='small' 
+                      variant='outlined' 
+                      color='success' 
+                      onClick={handleRedirect} 
+                      autoFocus>
+                          Sign In
+                  </Button>
+                  </DialogActions>
+              </Dialog>
+              </>
+            }
+            
               <Snackbar
                 open={likeOpen}
                 autoHideDuration={1000}
@@ -134,9 +191,50 @@ const SingleProduct = ({id,image,title,description,price}) => {
                 message="Added to wishlist"
                 action={likeAction}
               />
-            <button className='cart-btn' onClick={handleCartButton}>
-              <i className="ri-shopping-cart-fill"></i>
-            </button>
+
+
+            {isAuth ? 
+              <button className='cart-btn' onClick={handleCartButton}>
+                <i className="ri-shopping-cart-fill"></i>
+              </button> 
+              : 
+              <>
+                <button className='cart-btn' onClick={handleOpen}>
+                <i className="ri-shopping-cart-fill"></i>
+              </button>
+              <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+              >
+                  <DialogTitle id="alert-dialog-title">
+                  {"Need to Sign-in for this action"}
+                  </DialogTitle>
+                  <DialogActions>
+                  <Button 
+                      className='dialog-btn'
+                      size='small' 
+                      variant='outlined' 
+                      color='error' 
+                      onClick={handleClose}
+                      >
+                         Continue
+                      </Button>
+                  <Button 
+                      className='dialog-btn'
+                      size='small' 
+                      variant='outlined' 
+                      color='success' 
+                      onClick={handleRedirect} 
+                      autoFocus>
+                          Sign In
+                  </Button>
+                  </DialogActions>
+              </Dialog>
+              </>
+
+            }
             <Snackbar
                 open={cartOpen}
                 autoHideDuration={1000}
