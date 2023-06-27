@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router';
 
 
 
-const SingleProduct = ({id,image,title,description,price}) => {
+const SingleProduct = ({id,img,title,desc,price}) => {
   const {isAuth} = useContext(UserAuthContext);
   const { handleSetLikes, handleCartItem} = useContext(UserContext);
   const [likeOpen, setLikeOpen] = useState(false);
@@ -33,32 +33,32 @@ const SingleProduct = ({id,image,title,description,price}) => {
   };
 
   let currency = '$'; //future update if we go globally we would change it as per country
-  let desc = ''; // to keep the description in 50 words
+  let description = ''; // to keep the description in 50 words
   let discount = 20;
   const finalPrice = (price - (price * discount / 100)).toFixed(2);
   let count = 0;
   let word = '';
-  if(description.length >= 15){
-    for(let i = 0 ; i < description.length; i++){
-      desc += description[i];
-      if(description[i] === ' '){
+  if(desc.length >= 15){
+    for(let i = 0 ; i < desc.length; i++){
+      description += desc[i];
+      if(desc[i] === ' '){
         count++;
       }
       if(count === 30){
-        desc += '...';
+        description += '...';
         break;
       }
     }
   }
   else{
-    desc = description;
+    description = desc;
   }
   let alreadyLiked = false;
   const handleLikeButton = ()=>{
     handleLikeClick();
     const likedProduct = {
       'id':id,
-      'image':image,
+      'image':img,
       'title':title,
       'description': description,
       'price':price,
@@ -71,7 +71,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
     handleCartClick();
     const cartProduct = {
       'id':id,
-      'image':image,
+      'image':img,
       'title':title,
       'description': description,
       'price':price,
@@ -131,7 +131,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
   
   return (
     <div className='singleProduct-container'>
-        <img className='product-img' src={image}/>
+        <img className='product-img' src={img}/>
         <h4 className='product-name'>{title}</h4>
         
         <div className='product-cost'>
@@ -140,7 +140,7 @@ const SingleProduct = ({id,image,title,description,price}) => {
             </span>
             <span className='product-discount'>{discount!==0 && finalPrice} {discount!==0 && currency}</span>
         </div>
-        <p className='product-desciption'>{desc}</p>
+        <p className='product-desciption'>{description}</p>
         <div className='product-action'>
             {isAuth ? 
               <button className='like-btn' onClick={handleLikeButton}>

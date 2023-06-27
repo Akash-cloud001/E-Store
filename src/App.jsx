@@ -1,19 +1,65 @@
 import { useContext, useEffect, useState } from 'react';
-import { auth } from './firebase';
-import { Route, Routes,Link } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
 import PageNotFound from './components/PageNotFound';
 import PageProducts from './components/PageProducts';
-import { WOMEN_PRODUCTS, MEN_PRODUCTS, ACCESSORIES_PRODUCTS, COSMETIC_PRODUCTS} from './ProductsList';
 import LikedProducts from './components/LikedProducts';
 import CartPage from './components/CartPage';
 import Signin from './components/Signin';
 import SignUp from './components/SignUp';
 import UserProfile from './components/UserProfile';
 import { UserAuthContext } from './contexts/Contexts';
+import { db } from './firebase';
+import { collection, getDocs } from 'firebase/firestore';
+
+
 function App() {
   const {isAuth} = useContext(UserAuthContext);
+  const [men, setMen] = useState({});
+  const [women, setWomen] = useState({});
+  const [accessories, setAccessories] = useState({});
+  const [cosmetic, setCosmetic] = useState({});
+
+  const fetchMenData = async ()=>{
+    await getDocs(collection(db, 'productList/men/p1'))
+    .then((qs)=>{
+      const menData = qs.docs.map((doc) => ({...doc.data()}));
+      setMen(menData);
+    })
+    .catch((err)=>console.log(err));
+  }
+  const fetchWomenData = async ()=>{
+    await getDocs(collection(db, 'productList/women/p1')).then((qs)=>{
+      const womenData = qs.docs.map((doc) => ({...doc.data()}));
+      setWomen(womenData);
+    })
+    .catch((err)=>console.log(err));
+  }
+
+  const fetchAccessoriesData = async ()=>{
+    getDocs(collection(db, 'productList/accessories/p1')).then((qs)=>{
+      const accessoriesData = qs.docs.map((doc) => ({...doc.data()}));
+      setAccessories(accessoriesData);
+    })
+    .catch((err)=>console.log(err));
+  }
+
+  const fetchCosmeticData = async ()=>{
+    await getDocs(collection(db, 'productList/cosmetic/p1')).then((qs)=>{
+      const cosmeticData = qs.docs.map((doc) => ({...doc.data()}));
+      setCosmetic(cosmeticData);
+    })
+    .catch((err)=>console.log(err));
+  }
+  useEffect( ()=>{
+     fetchMenData();
+     fetchWomenData();
+     fetchAccessoriesData();
+     fetchCosmeticData();
+  },[]);
+
+
   return (
       <div className='App'>
         <Routes>
@@ -21,10 +67,10 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path={`/user/:userId`} element={<UserProfile />}/>
-          <Route path='/home/women' element={<PageProducts products={WOMEN_PRODUCTS}/>}/>
-          <Route path='/home/men' element={<PageProducts products={MEN_PRODUCTS}/>}/>
-          <Route path='/home/accessories' element={<PageProducts products={ACCESSORIES_PRODUCTS}/>}/>
-          <Route path='/home/cosmetic' element={<PageProducts products={COSMETIC_PRODUCTS} />}/>
+          <Route path='/home/women' element={<PageProducts products={women}/>}/>
+          <Route path='/home/men' element={<PageProducts products={men}/>}/>
+          <Route path='/home/accessories' element={<PageProducts products={accessories}/>}/>
+          <Route path='/home/cosmetic' element={<PageProducts products={cosmetic} />}/>
           <Route path='/home/liked-products' element={<LikedProducts />} />
           <Route path='/home/cart' element={<CartPage />} />
           <Route path='*' element={<PageNotFound />} />
