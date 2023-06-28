@@ -2,7 +2,6 @@ import React from 'react'
 import '../styles/SingleLikedProduct.css';
 import { useContext } from 'react';
 import { UserContext } from '../contexts/Contexts';
-import { Button } from '@mui/material';
 
 const SingleLikedProduct = ({id,title,price,finalPrice, image, description}) => {
   const {removeLikedProducts} = useContext(UserContext);

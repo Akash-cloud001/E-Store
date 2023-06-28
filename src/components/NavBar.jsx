@@ -52,8 +52,7 @@ const NavBar = () => {
     }
     const handleUserProfileBtn = (e)=>{
         e.preventDefault();
-        navigate(`/user/${uid}`);
-        console.log('clicked');
+        navigate(`/user/${userName}`);
     }
 
     const chevron = chevClick ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>;

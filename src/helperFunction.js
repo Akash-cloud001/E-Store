@@ -42,7 +42,7 @@ export function chooseRandomColor(){
 }
 
 export function nameSplit(userName, userAvatarColor){
-    const splitedName = userName.split(' ', 1);  // split( seperator, limitor ) 
+    const splitedName = userName?.split(' ', 1);  // split( seperator, limitor ) 
     const firstLetter = splitedName[0].split('',1).at(0);
     return {
       sx:{
