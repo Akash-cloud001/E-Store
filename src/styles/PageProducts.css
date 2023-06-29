@@ -1,6 +1,6 @@
 .products-container{
     /* margin-top: 64px; */
-    height: auto;
+    min-height: 90vh;
     width: 90%;
     margin-inline: auto;
     padding: 1rem;

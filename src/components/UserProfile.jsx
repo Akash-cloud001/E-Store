@@ -18,13 +18,14 @@ import { InputControl } from './InputControl';
 import { UserAuthContext } from '../contexts/Contexts';
 
 const UserProfile = () => {
-  const { userData, userAvatarColor, userSignOut } = useContext(UserAuthContext);
-
+  const { userData, userAvatarColor, userSignOut, userDbData } = useContext(UserAuthContext);
   const [value, setValue] = useState('1');
   
   const [editUserData, setEditUserData] = useState({
-    name: userData.displayName,
-    email: userData.email,
+    name: userDbData?.name,
+    email: userDbData?.email,
+    number: userDbData?.number,
+    address: userDbData?.address
     // name: 'David',
     // email: 'david@test.com',
   });
@@ -91,6 +92,25 @@ const UserProfile = () => {
                     }}
                     value = {editUserData.email}
                     disabled 
+                  />
+                  <InputControl 
+                    name = 'number'
+                    id = 'userNumber'
+                    type = 'tel'
+                    onChange = {event =>{
+                      setEditUserData((prev) => ({...prev, number: event.target.value}))
+                    }}
+                    value ={editUserData.number}
+                    
+                  />
+                  <InputControl 
+                    name = 'address'
+                    id = 'userAddress'
+                    type = 'text'
+                    value = {editUserData.address}
+                    onChange = {event =>{
+                      setEditUserData((prev)=>({...prev, address: event.target.value}))
+                    }}
                   />
                 </TabPanel>
                 <TabPanel value="2">Item Two</TabPanel>

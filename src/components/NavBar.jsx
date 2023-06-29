@@ -15,8 +15,8 @@ import Avatar from '@mui/material/Avatar';
 
 const NavBar = () => {
     const { isAuth, userData, userSignOut, userAvatarColor } = useContext(UserAuthContext);
-    const userName = userData.displayName; 
-    const uid = userData.uid;
+    const userName = userData?.displayName; 
+    const uid = userData?.uid;
     const navigate = useNavigate();
 
     const { likes, cart} = useContext(UserContext);

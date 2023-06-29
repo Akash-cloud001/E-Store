@@ -37,7 +37,6 @@ const SingleProduct = ({id,img,title,desc,price}) => {
   let discount = 20;
   const finalPrice = (price - (price * discount / 100)).toFixed(2);
   let count = 0;
-  let word = '';
   if(desc.length >= 15){
     for(let i = 0 ; i < desc.length; i++){
       description += desc[i];
@@ -53,7 +52,6 @@ const SingleProduct = ({id,img,title,desc,price}) => {
   else{
     description = desc;
   }
-  let alreadyLiked = false;
   const handleLikeButton = ()=>{
     handleLikeClick();
     const likedProduct = {

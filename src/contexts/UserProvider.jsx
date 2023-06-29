@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./Contexts";
 
 export const UserProvider = (props) =>{
+
+
     // accessing from localStorage
     const savedLiked = JSON.parse(window.localStorage.getItem('likes'));
     const savedCart = JSON.parse(window.localStorage.getItem('cart'));
@@ -67,7 +69,15 @@ export const UserProvider = (props) =>{
 
 
     return(
-        <UserContext.Provider value={{likes,handleSetLikes, removeLikedProducts, cart, handleCartItem, removeCartItem, totalAmt}}>
+        <UserContext.Provider value={{
+                likes,
+                handleSetLikes, 
+                removeLikedProducts, 
+                cart, 
+                handleCartItem, 
+                removeCartItem, 
+                totalAmt
+            }}>
             {props.children}
         </UserContext.Provider>
     )

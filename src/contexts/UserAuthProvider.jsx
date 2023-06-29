@@ -1,10 +1,27 @@
 import React from "react";
 import { UserAuthContext } from './Contexts';
-import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+
+// Databse imports
+import { auth, db} from '../firebase';
+import { 
+    doc, 
+    setDoc, 
+    getDoc
+} from "firebase/firestore";
+
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    signOut, 
+    updateProfile 
+} from 'firebase/auth';
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { chooseRandomColor } from "../helperFunction";
+
+
 
 export const UserAuthProvider = (props)=>{
     //TODO - create a user -->SignUp; then make it as a current user via -->SignIn; Create a signout method so that user can signout from the application..
@@ -12,6 +29,8 @@ export const UserAuthProvider = (props)=>{
     const [errorFirebase, setErrorFirebase] = useState('');
     const [isAuth, setIsAuth] = useState(false);
     const [userData, setUserData] = useState({});
+    const [userDbData, setUserDbData] = useState({});
+
 
     const [userAvatarColor, setUserAvatarColor] = useState('');
 
@@ -28,6 +47,8 @@ export const UserAuthProvider = (props)=>{
             await updateProfile(user,{
                 displayName: name,
             });
+            // create userDB in firestore under users collection 
+            createUserDB(name,email, user.uid, user.metadata.creationTime);
             navigate('/signin');
         })
         .catch((err)=>{
@@ -67,11 +88,36 @@ export const UserAuthProvider = (props)=>{
             console.log(error);
         })
     }
-    //
+    
 
-    function updateUserInfo(uid, name, email, phoneNumber){
+    //function to create userDb in firestore
+    async function createUserDB(name,email, uid, creationTime){
         //TODO need to done
+        const userData = {
+            name : name,
+            email : email,
+            number : 9999999999,
+            address : 'add your address',
+            cart : [],
+            wishlist: [],
+            userCreated: creationTime,
+        }
+        await setDoc(doc(db, 'users', uid), userData);
     }
+
+
+    async function fetchUserData(uid){
+        const docRef = doc(db, 'users', uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+            console.log('user db data : ', docSnap.data());
+            setUserDbData({...docSnap.data()});
+        }
+        else{
+            console.log('no data exists');
+        }
+    }
+
 
     // accessing current user who is authenticated
     useEffect(()=>{
@@ -80,6 +126,8 @@ export const UserAuthProvider = (props)=>{
           if(user){
             setUserData({...user});
             setIsAuth(true);
+            // console.log(user);
+            fetchUserData(user.uid);
           }
         });
       }, []);
@@ -96,7 +144,8 @@ export const UserAuthProvider = (props)=>{
                     userSignOut, 
                     isAuth, 
                     userData, 
-                    userAvatarColor
+                    userAvatarColor,
+                    userDbData
                 }}>
             {props.children}
         </UserAuthContext.Provider>
