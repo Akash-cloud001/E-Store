@@ -6,7 +6,8 @@ import { auth, db} from '../firebase';
 import { 
     doc, 
     setDoc, 
-    getDoc
+    getDoc,
+    updateDoc
 } from "firebase/firestore";
 
 import { 
@@ -32,7 +33,10 @@ export const UserAuthProvider = (props)=>{
     const [userDbData, setUserDbData] = useState({});
 
 
-    const [userAvatarColor, setUserAvatarColor] = useState('');
+    const [userAvatar, setUserAvatar] = useState({
+        userName : '',
+        userColor : ''
+    });
 
     const navigate = useNavigate();
 
@@ -48,7 +52,7 @@ export const UserAuthProvider = (props)=>{
                 displayName: name,
             });
             // create userDB in firestore under users collection 
-            createUserDB(name,email, user.uid, user.metadata.creationTime);
+            createUserDB(name, email, user.uid, user.metadata.creationTime);
             navigate('/signin');
         })
         .catch((err)=>{
@@ -65,8 +69,12 @@ export const UserAuthProvider = (props)=>{
         //singin code
         setSubmitBtn(true);
         await signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
-            setSubmitBtn(false);            
-            navigate('/');
+            setSubmitBtn(false);
+            // fetchUserData(userData.uid);            
+            setTimeout(()=>{
+                navigate('/');
+            },1000);
+
         })
         .catch((err)=>{
             setErrorFirebase(err.message);
@@ -96,28 +104,43 @@ export const UserAuthProvider = (props)=>{
         const userData = {
             name : name,
             email : email,
-            number : 9999999999,
-            address : 'add your address',
+            number : ' ',
+            address : " ",
             cart : [],
             wishlist: [],
             userCreated: creationTime,
+            uid: uid
         }
         await setDoc(doc(db, 'users', uid), userData);
     }
 
 
     async function fetchUserData(uid){
-        const docRef = doc(db, 'users', uid);
-        const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
+        try{
+            const docRef = doc(db, 'users', uid);
+            const docSnap = await getDoc(docRef);
             console.log('user db data : ', docSnap.data());
             setUserDbData({...docSnap.data()});
         }
-        else{
-            console.log('no data exists');
+        catch(err){
+            console.log(err);
         }
     }
 
+    async function updateUserProfile(add, num){
+        const userDocRef = doc(db, 'users', userData.uid);
+        try{
+            await updateDoc(userDocRef,{
+                address : add,
+                number: num
+
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+
+    }
 
     // accessing current user who is authenticated
     useEffect(()=>{
@@ -126,14 +149,15 @@ export const UserAuthProvider = (props)=>{
           if(user){
             setUserData({...user});
             setIsAuth(true);
-            // console.log(user);
             fetchUserData(user.uid);
+            setUserAvatar((prev)=>({
+                userName : user.displayName,
+                userColor : chooseRandomColor()
+            }));
           }
         });
       }, []);
-      useEffect(()=>{
-        setUserAvatarColor(chooseRandomColor());
-      },[])
+
 
     return(
         <UserAuthContext.Provider value={{
@@ -144,8 +168,9 @@ export const UserAuthProvider = (props)=>{
                     userSignOut, 
                     isAuth, 
                     userData, 
-                    userAvatarColor,
-                    userDbData
+                    userAvatar,
+                    userDbData,
+                    updateUserProfile
                 }}>
             {props.children}
         </UserAuthContext.Provider>

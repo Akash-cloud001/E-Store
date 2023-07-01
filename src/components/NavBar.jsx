@@ -14,9 +14,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Avatar from '@mui/material/Avatar';
 
 const NavBar = () => {
-    const { isAuth, userData, userSignOut, userAvatarColor } = useContext(UserAuthContext);
-    const userName = userData?.displayName; 
-    const uid = userData?.uid;
+    const { isAuth, userSignOut, userAvatar, userDbData } = useContext(UserAuthContext);
+
     const navigate = useNavigate();
 
     const { likes, cart} = useContext(UserContext);
@@ -52,7 +51,7 @@ const NavBar = () => {
     }
     const handleUserProfileBtn = (e)=>{
         e.preventDefault();
-        navigate(`/user/${userName}`);
+        navigate(`/user/${userAvatar.userName}`);
     }
 
     const chevron = chevClick ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>;
@@ -89,7 +88,7 @@ const NavBar = () => {
                         
                     {isAuth? 
                         <button onClick={handleUserProfileBtn}  className='user-nav-avatar-cont'>
-                            <Avatar {...nameSplit(userName, userAvatarColor)} className='user-nav-avatar' />
+                            <Avatar {...nameSplit(userAvatar.userName, userAvatar.userColor)} className='user-nav-avatar' />
                         </button> 
                         :
                         <Link to='/signin'>
