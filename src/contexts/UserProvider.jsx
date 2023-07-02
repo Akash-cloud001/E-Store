@@ -1,17 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "./Contexts";
+import { UserAuthContext, UserContext } from "./Contexts";
 
 export const UserProvider = (props) =>{
 
 
+    const { userDbData } = useContext(UserAuthContext);
+
     // accessing from localStorage
-    const savedLiked = JSON.parse(window.localStorage.getItem('likes'));
+    const savedLiked = JSON.parse(window.localStorage.getItem('wishlist'));
     const savedCart = JSON.parse(window.localStorage.getItem('cart'));
-    const savedTotalAmt = Number(JSON.parse(window.localStorage.getItem('totalAmt')));
+    // const savedTotalAmt = Number(JSON.parse(window.localStorage.getItem('totalAmt')));
     // checking if localStorage have those than use them else go with empty array
     const [likes, setLikes] = useState(savedLiked || []);
     const [cart, setCart] = useState(savedCart || []);
-    const [totalAmt, setTotalAmt] = useState(savedTotalAmt || 0);
+    const [totalAmt, setTotalAmt] = useState(0);
     
     // Methods to Handle Liked Product
     const handleSetLikes = (likedProduct)=>{
@@ -56,9 +58,10 @@ export const UserProvider = (props) =>{
         setTotalAmt((Number(totalAmt) - Number(finalPrice)).toFixed(3));
     }
 
+    
     // To Update Likes
     useEffect(()=>{
-        window.localStorage.setItem('likes',JSON.stringify(likes));
+        window.localStorage.setItem('wishlist',JSON.stringify(likes));
     }, [likes]);
 
     // To update Cart and totalAmount

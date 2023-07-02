@@ -71,7 +71,8 @@ export const UserAuthProvider = (props)=>{
         setSubmitBtn(true);
         await signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
             setSubmitBtn(false);
-            return navigate('/')
+            navigate('/');
+            location.reload();
         })
         .catch((err)=>{
             setErrorFirebase(err.message);
@@ -88,7 +89,14 @@ export const UserAuthProvider = (props)=>{
         signOut(auth).then(()=>{
             setIsAuth(false);
             setUserData({});
+            let wishlist = JSON.parse(window.localStorage.getItem('wishlist'));
+            let cart = JSON.parse(window.localStorage.getItem('cart'));
+            
+            updateUserShoppingItems(wishlist, 'wishlist');
+            updateUserShoppingItems(cart, 'cart');
             navigate('/');
+            window.localStorage.clear();            
+
         }).catch((error)=>{
             console.log(error);
         })
@@ -125,6 +133,7 @@ export const UserAuthProvider = (props)=>{
     }
 
     async function updateUserProfile(add, num){
+        console.log('called');
         const userDocRef = doc(db, 'users', userData.uid);
         try{
             await updateDoc(userDocRef,{
@@ -166,7 +175,7 @@ export const UserAuthProvider = (props)=>{
 
 
     // accessing current user who is authenticated
-    useEffect(()=>{
+    useEffect( ()=>{
         auth.onAuthStateChanged((user)=>{
         //   JSON.stringify(user);
           if(user){
@@ -176,10 +185,17 @@ export const UserAuthProvider = (props)=>{
             setUserAvatar((prev)=>({
                 userName : user.displayName,
                 userColor : chooseRandomColor()
-            }));    
+            }));  
           }
         });
+        // window.localStorage.setItem('cart', JSON.stringify(userDbData.cart === undefined ? [] : userDbData.cart));
+        // window.localStorage.setItem('wishlist', JSON.stringify(userDbData.wishlist === undefined ? [] : userDbData.wishlist));
       }, []);
+
+      useEffect(()=>{
+        window.localStorage.setItem('cart', JSON.stringify(userDbData.cart === undefined ? [] : userDbData.cart));
+        window.localStorage.setItem('wishlist', JSON.stringify(userDbData.wishlist === undefined ? [] : userDbData.wishlist));
+      },[userDbData]);
 
 
     return(
