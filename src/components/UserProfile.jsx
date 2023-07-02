@@ -34,12 +34,8 @@ const UserProfile = () => {
   const [notEditable, setNotEditable] = useState(true);
   const [inputErr, setInputErr] = useState(false);
   const [editUserData, setEditUserData] = useState({
-    name: userDbData?.name,
-    email: userDbData?.email,
     number: userDbData?.number === ''? '': userDbData.number,
     address: userDbData?.address === ''? '': userDbData.address
-    // name: 'David',
-    // email: 'david@test.com',
   });
 
 // handle User data to auth provider 
@@ -96,7 +92,7 @@ const UserProfile = () => {
           
           <aside className='user-aside'>
             <p className='user-name'>
-              Welcome {editUserData.name} 
+              Welcome {userDbData.name} 
             </p> 
 
             <Avatar {...nameSplit(userAvatar.userName, userAvatar.userColor)} className='user-avatar'/>
@@ -134,27 +130,21 @@ const UserProfile = () => {
                     name = 'name'
                     id = 'userName'
                     type = 'text'
-                    onChange = {event =>{
-                      setEditUserData((prev)=>({...prev, name: event.target.value}))
-                    }}
-                    value = {editUserData.name}
+                    value = {userDbData.name}
                     disabled 
                   />
                   <InputControl 
                     name = 'email'
                     id = 'userEmail'
                     type = 'email'
-                    onChange = {event =>{
-                      setEditUserData((prev)=>({...prev, email: event.target.value}))
-                    }}
-                    value = {editUserData.email}
+                    value = {userDbData.email}
                     disabled 
                   />
                   <InputControl 
                     name = 'number'
                     id = 'userNumber'
                     type = 'tel'
-                    placeholder = 'Enter Your Number'
+                    placeholder = {userDbData.number}
                     onChange = {event =>{
                       setEditUserData((prev) => ({...prev, number: event.target.value}))
                     }}
@@ -166,7 +156,7 @@ const UserProfile = () => {
                     id = 'userAddress'
                     type = 'text'
                     value = {editUserData.address}
-                    placeholder = 'Let us know where you from'
+                    placeholder = {userDbData.address}
                     onChange = {event =>{
                       setEditUserData((prev)=>({...prev, address: event.target.value}))
                     }}

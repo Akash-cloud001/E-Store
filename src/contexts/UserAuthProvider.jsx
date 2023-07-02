@@ -65,16 +65,13 @@ export const UserAuthProvider = (props)=>{
         return;
     }
 
+
     async function userSignIn(email, password){
         //singin code
         setSubmitBtn(true);
         await signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
             setSubmitBtn(false);
-            // fetchUserData(userData.uid);            
-            setTimeout(()=>{
-                navigate('/');
-            },1000);
-
+            return navigate('/')
         })
         .catch((err)=>{
             setErrorFirebase(err.message);
@@ -142,10 +139,36 @@ export const UserAuthProvider = (props)=>{
 
     }
 
+    async function updateUserShoppingItems(object, key){
+        const userDocRef = doc(db, 'users', userData.uid);
+        switch(key){
+            case "cart":
+                try{
+                    await updateDoc(userDocRef,{
+                        cart : object
+                    })
+                }catch(err){
+                    console.log(err);
+                }
+                break;
+
+            case "wishlist":
+                try{
+                    await updateDoc(userDocRef,{
+                        wishlist : object
+                    })
+                }catch(err){
+                    console.log(err);
+                }
+                break;
+        }
+    }
+
+
     // accessing current user who is authenticated
     useEffect(()=>{
         auth.onAuthStateChanged((user)=>{
-          JSON.stringify(user);
+        //   JSON.stringify(user);
           if(user){
             setUserData({...user});
             setIsAuth(true);
@@ -153,7 +176,7 @@ export const UserAuthProvider = (props)=>{
             setUserAvatar((prev)=>({
                 userName : user.displayName,
                 userColor : chooseRandomColor()
-            }));
+            }));    
           }
         });
       }, []);
@@ -170,7 +193,8 @@ export const UserAuthProvider = (props)=>{
                     userData, 
                     userAvatar,
                     userDbData,
-                    updateUserProfile
+                    updateUserProfile,
+                    updateUserShoppingItems
                 }}>
             {props.children}
         </UserAuthContext.Provider>

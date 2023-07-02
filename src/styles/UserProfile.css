@@ -21,10 +21,9 @@
     font-size: x-large;
     font-weight: bolder;
     color: var(--c-blue);
+    text-transform: capitalize;
 }
-.user-name::first-letter{
-    color: var(--c-blue);
-}
+
 
 .user-avatar{
     height: 200px !important;
