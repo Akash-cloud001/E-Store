@@ -9,13 +9,14 @@ import CartPage from './components/CartPage';
 import Signin from './components/Signin';
 import SignUp from './components/SignUp';
 import UserProfile from './components/UserProfile';
+import Loader from './components/Loader';
 import { UserAuthContext } from './contexts/Contexts';
 import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
 
 function App() {
-  const {isAuth} = useContext(UserAuthContext);
+  const {isAuth, isNotFetched} = useContext(UserAuthContext);
   const [men, setMen] = useState({});
   const [women, setWomen] = useState({});
   const [accessories, setAccessories] = useState({});
@@ -58,6 +59,17 @@ function App() {
      fetchAccessoriesData();
      fetchCosmeticData();
   },[]);
+
+
+function loading(){
+  return(
+    <p>Loading ... </p>
+  )
+}
+
+  if(isNotFetched){
+    return <Loader />
+  }
 
 
   return (

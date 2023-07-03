@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Gototop from './Gototop';
 import { useContext } from 'react';
 import { UserContext } from '../contexts/Contexts';
@@ -11,10 +11,28 @@ import '../styles/CartPage.css';
 import Footer from './Footer';
 
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+import Avatar from '@mui/material/Avatar';
+
 const CartPage = () => {
-    const { cart, totalAmt } = useContext(UserContext);
     const navigate = useNavigate();
+    const { cart} = useContext(UserContext);
+    const [open, setOpen] = useState(false);
+    const [totalAmt, setTotalAmt] = useState(0);
     
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+      
+      const handleClose = () => {
+        setOpen(false);
+      };
+
+
     return (
     <>
         <NavBar />
@@ -71,9 +89,39 @@ const CartPage = () => {
                     </tr>
                     <tr>
                         <th colSpan={2} align='center' className='table-btn'>
-                            <button >
+                            <button onClick={handleClickOpen}>
                                 Buy All Now
                             </button>
+                            <Dialog
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                {"Thanks For Shopping From E-Store"}
+                                </DialogTitle>
+                                <DialogActions>
+                                <Button 
+                                    className='dialog-btn'
+                                    size='small' 
+                                    variant='outlined' 
+                                    color='error' 
+                                    onClick={handleClose}
+                                    >
+                                        <ClearIcon />
+                                    </Button>
+                                <Button 
+                                    className='dialog-btn'
+                                    size='small' 
+                                    variant='outlined' 
+                                    color='success' 
+                                    onClick={()=>{navigate('/'); handleClose() }} 
+                                    autoFocus>
+                                        <CheckIcon/>
+                                </Button>
+                                </DialogActions>
+                            </Dialog>
                         </th>
                     </tr>
                 </tfoot>

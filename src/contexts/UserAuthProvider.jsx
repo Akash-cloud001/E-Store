@@ -26,6 +26,7 @@ import { chooseRandomColor } from "../helperFunction";
 
 export const UserAuthProvider = (props)=>{
     //TODO - create a user -->SignUp; then make it as a current user via -->SignIn; Create a signout method so that user can signout from the application..
+    const [isNotFetched, setIsNotFetched] = useState(false);
     const [submitBtn, setSubmitBtn] = useState(false);
     const [errorFirebase, setErrorFirebase] = useState('');
     const [isAuth, setIsAuth] = useState(false);
@@ -72,6 +73,7 @@ export const UserAuthProvider = (props)=>{
         await signInWithEmailAndPassword(auth, email,password).then(async(res)=>{
             setSubmitBtn(false);
             navigate('/');
+            setUserData({...user});
             location.reload();
         })
         .catch((err)=>{
@@ -91,11 +93,11 @@ export const UserAuthProvider = (props)=>{
             setUserData({});
             let wishlist = JSON.parse(window.localStorage.getItem('wishlist'));
             let cart = JSON.parse(window.localStorage.getItem('cart'));
-            
+            let totalAmt = JSON.parse(window.localStorage.getItem('totalAmt'));
             updateUserShoppingItems(wishlist, 'wishlist');
             updateUserShoppingItems(cart, 'cart');
-            navigate('/');
             window.localStorage.clear();            
+            navigate('/');
 
         }).catch((error)=>{
             console.log(error);
@@ -109,23 +111,26 @@ export const UserAuthProvider = (props)=>{
         const userData = {
             name : name,
             email : email,
-            number : ' ',
-            address : " ",
+            number : '',
+            address : "",
             cart : [],
             wishlist: [],
             userCreated: creationTime,
-            uid: uid
+            uid: uid,
+            totalAmount:'0'
         }
         await setDoc(doc(db, 'users', uid), userData);
     }
 
 
     async function fetchUserData(uid){
+        setIsNotFetched(true);
         try{
             const docRef = doc(db, 'users', uid);
             const docSnap = await getDoc(docRef);
             console.log('user db data : ', docSnap.data());
             setUserDbData({...docSnap.data()});
+            setIsNotFetched(false);
         }
         catch(err){
             console.log(err);
@@ -170,31 +175,42 @@ export const UserAuthProvider = (props)=>{
                     console.log(err);
                 }
                 break;
+            case "totalAmount":
+                try{
+                    await updateDoc(userDocRef,{
+                        totalAmount : object
+                    })
+                }catch(err){
+                    console.log(err);
+                }
+                break;
         }
     }
 
 
     // accessing current user who is authenticated
-    useEffect( ()=>{
-        auth.onAuthStateChanged((user)=>{
-        //   JSON.stringify(user);
-          if(user){
-            setUserData({...user});
+    useEffect(()=>{
+        auth.onAuthStateChanged(async (user)=>{
+              JSON.stringify(user);
+            if(user){
             setIsAuth(true);
-            fetchUserData(user.uid);
+            await fetchUserData(user.uid);
             setUserAvatar((prev)=>({
                 userName : user.displayName,
                 userColor : chooseRandomColor()
             }));  
-          }
+            window.localStorage.setItem('cart', JSON.stringify(userDbData.cart === undefined ? [] : userDbData.cart));
+            window.localStorage.setItem('wishlist', JSON.stringify(userDbData.wishlist === undefined ? [] : userDbData.wishlist));
+            }
         });
-        // window.localStorage.setItem('cart', JSON.stringify(userDbData.cart === undefined ? [] : userDbData.cart));
-        // window.localStorage.setItem('wishlist', JSON.stringify(userDbData.wishlist === undefined ? [] : userDbData.wishlist));
-      }, []);
 
-      useEffect(()=>{
-        window.localStorage.setItem('cart', JSON.stringify(userDbData.cart === undefined ? [] : userDbData.cart));
-        window.localStorage.setItem('wishlist', JSON.stringify(userDbData.wishlist === undefined ? [] : userDbData.wishlist));
+    }, []);
+    
+    useEffect(()=>{
+        if(isAuth){
+            window.localStorage.setItem('cart', JSON.stringify(userDbData.cart === undefined ? [] : userDbData.cart));
+            window.localStorage.setItem('wishlist', JSON.stringify(userDbData.wishlist === undefined ? [] : userDbData.wishlist));
+        }
       },[userDbData]);
 
 
@@ -210,7 +226,8 @@ export const UserAuthProvider = (props)=>{
                     userAvatar,
                     userDbData,
                     updateUserProfile,
-                    updateUserShoppingItems
+                    updateUserShoppingItems,
+                    isNotFetched
                 }}>
             {props.children}
         </UserAuthContext.Provider>
