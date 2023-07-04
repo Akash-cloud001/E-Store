@@ -12,6 +12,7 @@
     align-self: center;
     aspect-ratio: 1 / 1;
     object-fit: contain;
+    margin-inline: auto;
 }
 .cart-item-aside{
     height: 100%;

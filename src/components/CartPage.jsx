@@ -16,13 +16,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import Avatar from '@mui/material/Avatar';
 
 const CartPage = () => {
     const navigate = useNavigate();
-    const { cart} = useContext(UserContext);
+    const { cart, totalAmt} = useContext(UserContext);
     const [open, setOpen] = useState(false);
-    const [totalAmt, setTotalAmt] = useState(0);
     
     const handleClickOpen = () => {
         setOpen(true);
@@ -99,8 +97,11 @@ const CartPage = () => {
                                 aria-describedby="alert-dialog-description"
                             >
                                 <DialogTitle id="alert-dialog-title">
-                                {"Thanks For Shopping From E-Store"}
+                                {"Thanks For Shopping"}
                                 </DialogTitle>
+                                <h4 className='cart-checkout-dialog'>
+                                    Your Total is: &nbsp;<span>{totalAmt}$</span> 
+                                </h4>
                                 <DialogActions>
                                 <Button 
                                     className='dialog-btn'
@@ -109,7 +110,8 @@ const CartPage = () => {
                                     color='error' 
                                     onClick={handleClose}
                                     >
-                                        <ClearIcon />
+                                        Continue Shopping
+                                        {/* <ClearIcon /> */}
                                     </Button>
                                 <Button 
                                     className='dialog-btn'
@@ -118,7 +120,8 @@ const CartPage = () => {
                                     color='success' 
                                     onClick={()=>{navigate('/'); handleClose() }} 
                                     autoFocus>
-                                        <CheckIcon/>
+                                        Checkout
+                                        {/* <CheckIcon/> */}
                                 </Button>
                                 </DialogActions>
                             </Dialog>

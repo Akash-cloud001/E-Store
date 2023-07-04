@@ -7,6 +7,7 @@ import phone from '../images/phone.svg';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import CategoryGrid from './CategoryGrid';
+import Gototop from './Gototop';
 
 const Home = () => {
   return (
@@ -30,6 +31,7 @@ const Home = () => {
         </main>
         <CategoryGrid />
         {/* HomePageProducts */}
+        <Gototop/>
         <Footer />
     </div>
   )

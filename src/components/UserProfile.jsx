@@ -24,13 +24,19 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 
 
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 const UserProfile = () => {
   const { userAvatar, userSignOut, userDbData, updateUserProfile } = useContext(UserAuthContext);
   const [value, setValue] = useState('1');
   const [open, setOpen] = useState(false);
-  
+  const [snackOpen, setSnackOpen] = React.useState(false);
   const [notEditable, setNotEditable] = useState(true);
   const [inputErr, setInputErr] = useState(false);
   const [editUserData, setEditUserData] = useState({
@@ -45,6 +51,7 @@ const UserProfile = () => {
     updateUserProfile(editUserData.address, editUserData.number)
     setOpen(false);
     setNotEditable(true);
+    handleSnackClick();
   }
 
 // For tabs
@@ -63,7 +70,7 @@ const UserProfile = () => {
       }, 1500);
       return;
     }
-    
+        
     for(let i=0 ; i<editUserData.number.length; i++){
       if(editUserData.number[i] >= '0' && editUserData.number[i] <= '9'){
         continue;
@@ -80,9 +87,23 @@ const UserProfile = () => {
 
     setOpen(true);
   }
+
   const handleClose = () => {
     setOpen(false);
   };
+
+
+  
+  const handleSnackClick = () => {
+    setSnackOpen(true);
+  };
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackOpen(false);
+  }
 
 
   return (
@@ -99,7 +120,7 @@ const UserProfile = () => {
 
             <div className='user-profile-action'>
               {/* TODO create a button which will take user pic and upload it to the firebase */}
-              <button>
+              <button >
                 Add New Profile 
               </button>
             </div>
@@ -224,10 +245,19 @@ const UserProfile = () => {
                         </Button>
                         </DialogActions>
                     </Dialog>
+                    <Snackbar 
+                    open={snackOpen} 
+                    autoHideDuration={2000} 
+                    onClose={handleSnackClose}
+                    >
+                        <Alert onClose={handleSnackClose} severity="success" sx={{ width: '100%' }}>
+                            Successfully Updated
+                        </Alert>
+                    </Snackbar>
                   </div>
 
                 </TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
+                <TabPanel value="2" style={{textAlign:'center'}}>List of Bills <i className="ri-file-list-3-line"></i></TabPanel>
               </TabContext>
             </Box>
           </section>

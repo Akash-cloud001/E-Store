@@ -226,7 +226,6 @@ export const UserAuthProvider = (props)=>{
                     userAvatar,
                     userDbData,
                     updateUserProfile,
-                    updateUserShoppingItems,
                     isNotFetched
                 }}>
             {props.children}

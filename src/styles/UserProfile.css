@@ -38,6 +38,7 @@
 .user-profile-action > button{
     font-size: small;
     font-weight: bold;
+    visibility: hidden;
 }
 .signout-btn{
     color: var(--c-white);
