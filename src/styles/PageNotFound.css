@@ -1,0 +1,23 @@
+.pageNotFoundContainer{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.pageNotFoundContainer > h2{
+    font-family: var(--ff-roboto);
+    font-size: 2rem;
+    color: var(--c-grey-shade);
+    font-weight: 800;
+}
+@media ( max-width : 575px){
+    .pageNotFoundContainer img{
+        height: 200px;
+        width: 200px;
+    }
+    .pageNotFoundContainer h2{
+        font-size: 1.5rem;
+    }
+}
